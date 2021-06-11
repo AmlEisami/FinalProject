@@ -355,3 +355,8 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\bin\Debug\net5.0\runtimes\w
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.Views.pdb
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.csproj.CopyComplete
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.genruntimeconfig.cache
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Create.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Delete.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Details.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Edit.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Index.cshtml.g.cs
