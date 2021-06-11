@@ -11,13 +11,17 @@ namespace FinalProject.Models
         public int Id { get; set; }
 
         [Required]
-        public string ProdactName { get; set; }
+        public string ProductName { get; set; }
 
         [Required]
         public double Price { get; set; }
 
         [Required]
         public int Stock { get; set; }
+
+        public string Description { get; set; }
+
+        public string Image { get; set; }
 
         public List<Categories> Category { get; set; }
     }
