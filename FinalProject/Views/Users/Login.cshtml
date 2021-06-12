@@ -1,0 +1,43 @@
+﻿@model FinalProject.Models.Users
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LoginLayout";
+}
+
+<div style="text-align:center;height:100vh;display:grid;align-items:center;">
+    <div>
+        <div style="margin-top: -5%; padding: 2%; background-color: #595959; color: white; border-radius: 200px">
+            <h1 style="padding:0 0 5% 0;">Welcome to the website</h1>
+
+            <form asp-action="Login">
+                <!--<div asp-validation-summary="ModelOnly" class="text-danger"></div>-->
+                <div class="form-group row" style="padding:0 0 2% 0;">
+                    <label asp-for="Username" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Username" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group row" style="padding:2% 0 5% 0;">
+                    <label asp-for="Password" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Password" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+            </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="text-danger">@ViewBag.Error</div>
+            }
+
+        </div>
+        <div>
+            Don't have an account? <a asp-action="Register">Sign up</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

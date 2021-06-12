@@ -1,0 +1,57 @@
+﻿@model FinalProject.Models.Users
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_LoginLayout";
+}
+<div style="text-align:center;height:100vh;display:grid;align-items:center;">
+    <div>
+        <div style="margin-top: -5%; padding: 2%; background-color: #595959; color: white; border-radius: 200px ">
+            <h1 style="padding:0 0 5% 0;">Register a new User</h1>
+
+            <form asp-action="Register">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row" style="padding:0 0 2% 0">
+                    <label asp-for="Fullname" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Fullname" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Fullname" class="text-danger"></span>
+                </div>
+                <div class="form-group row" style="padding:2% 0 2% 0">
+                    <label asp-for="Username" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Username" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group row" style="padding:2% 0 2% 0">
+                    <label asp-for="Password" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Password" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group row" style="padding:2% 0 2% 0">
+                    <label asp-for="Email" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Email" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group row" style="padding:2% 0 5% 0">
+                    <label asp-for="Birthdate" class="col-sm-2 col-form-label control-label"></label>
+                    <input asp-for="Birthdate" class="col-sm-9 col-form-label form-control" />
+                    <span asp-validation-for="Birthdate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                </div>
+            </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="text-danger">@ViewBag.Error</div>
+            }
+
+        </div>
+        <div>
+            Have an account? <a asp-action="Login">Log in</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -223,11 +223,6 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Create.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Delete.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Edit.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.RazorTargetAssemblyInfo.cache
@@ -360,3 +355,10 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Details.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Edit.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\Index.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\_LoginLayout.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Delete.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Edit.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs

@@ -6,20 +6,37 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
+
+    public enum UserPermission
+    {
+        Admin = 1,
+        Editor,
+        Client
+    }
+
     public class Users
     {
         public int Id { get; set; }
 
         [Required]
-        public string UserName { get; set; }
+        public string Fullname { get; set; }
 
         [Required]
+        public string Username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
-        public string DisplayName { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
-        public int PermissionsId { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Birthdate { get; set; }
+
+        public int PermissionsId { get; set; } = 3;
 
         public Permissions Permission { get; set; }
 
