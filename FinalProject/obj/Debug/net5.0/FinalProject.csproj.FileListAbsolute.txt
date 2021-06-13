@@ -362,3 +362,4 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\AccessDenied.cshtml.g.cs

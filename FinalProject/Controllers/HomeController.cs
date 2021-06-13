@@ -1,4 +1,5 @@
 ﻿using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +24,7 @@ namespace FinalProject.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Privacy()
         {
             return View();

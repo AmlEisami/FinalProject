@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FinalProject.Controllers
 {
@@ -26,6 +29,11 @@ namespace FinalProject.Controllers
             return View();
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         // POST: Users/Login
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -39,6 +47,8 @@ namespace FinalProject.Controllers
 
             if (q.Count() > 0)
             {
+                Signin(q.First());
+
                 return RedirectToAction(nameof(Index), "Home");
             }
             else
@@ -49,8 +59,37 @@ namespace FinalProject.Controllers
             return View(users);
         }
 
+        private async void Signin(Users account)
+        {
+            var permission = from permissions in _context.Permissions
+                    where permissions.Id == account.PermissionsId
+                    select permissions;
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, account.Username), 
+                new Claim(ClaimTypes.Role, permission.First().PermissionName), 
+            }; 
+            
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme); 
+            
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
+            };
+            
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,new ClaimsPrincipal(claimsIdentity),authProperties);
+        }
+
+        public async Task<IActionResult> Signout()
+        {
+            //HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Login");
+        }
+
         // GET: Users/Register
-        public IActionResult Register()
+            public IActionResult Register()
         {
             ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName");
             return View();
@@ -74,6 +113,11 @@ namespace FinalProject.Controllers
                     {
                         _context.Add(users);
                         await _context.SaveChangesAsync();
+
+                        var newUser = _context.Users.FirstOrDefault(user => user.Username == users.Username && user.Password == users.Password);
+
+                        Signin(newUser);
+
                         return RedirectToAction(nameof(Index), "Home");
                     } else
                     {
