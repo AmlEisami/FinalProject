@@ -1,48 +1,52 @@
-﻿@model FinalProject.Models.Products
+﻿@using Microsoft.AspNetCore.Http
+@model FinalProject.Models.Products
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    .add-to-cart {
+        color: white;
+        background-color: #218838;
+        border: none;
+        border-radius: 3px;
+        padding: 3px 20px;
+    }
+</style>
 
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
+<div class="text-center">
+    <h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
+
+    <div>
+        <img alt="Image" class="mx-auto" src=@Html.DisplayFor(model => model.Image) height="400" width="400" />
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Price):</strong>
+            @Html.DisplayFor(model => model.Price)$
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Stock):</strong>
             @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Description):</strong>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        </p>
+        <p>
+            <input type="number" min="0" />
+            <button class="add-to-cart">Add to cart</button>
+        </p>
+    </div>
+    <div>
+        <p>
+            <a asp-action="Index" class="btn btn-primary">Go Back</a>
+        </p>
+        @if (Context.Session.GetString("Permission") == "Admin")
+        {
+            <p>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit Product</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete Product</a>
+            </p>
+        }
+    </div>
 </div>

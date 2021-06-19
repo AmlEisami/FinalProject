@@ -1,0 +1,12 @@
+﻿.product-item-wrapper {
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.product-item {
+    display: flex;
+    flex-flow: column;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    text-align: center;
+}
