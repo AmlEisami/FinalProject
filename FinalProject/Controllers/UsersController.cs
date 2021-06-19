@@ -10,6 +10,8 @@ using FinalProject.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
 {
@@ -25,6 +27,10 @@ namespace FinalProject.Controllers
         // GET: Users/Login
         public IActionResult Login()
         {
+            if (HttpContext.Session.GetString("Permission") != null)
+            {
+                return RedirectToAction(nameof(Index), "Products");
+            }
             ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName");
             return View();
         }
@@ -49,7 +55,7 @@ namespace FinalProject.Controllers
             {
                 Signin(q.First());
 
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(Index), "Products");
             }
             else
             {
@@ -64,6 +70,9 @@ namespace FinalProject.Controllers
             var permission = from permissions in _context.Permissions
                     where permissions.Id == account.PermissionsId
                     select permissions;
+            
+            HttpContext.Session.SetString("Permission", permission.First().PermissionName);
+            HttpContext.Session.SetString("Username", account.Username);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, account.Username), 
@@ -84,6 +93,7 @@ namespace FinalProject.Controllers
         {
             //HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
 
             return RedirectToAction("Login");
         }
@@ -91,6 +101,10 @@ namespace FinalProject.Controllers
         // GET: Users/Register
             public IActionResult Register()
         {
+            if (HttpContext.Session.GetString("Permission") != null)
+            {
+                return RedirectToAction(nameof(Index), "Products");
+            }
             ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName");
             return View();
         }
@@ -135,12 +149,6 @@ namespace FinalProject.Controllers
         }
 
         /*
-                // GET: Users
-                public async Task<IActionResult> Index()
-                {
-                    var finalProjectContext = _context.Users.Include(u => u.Permission);
-                    return View(await finalProjectContext.ToListAsync());
-                }
 
                 // GET: Users/Details/5
                 public async Task<IActionResult> Details(int? id)

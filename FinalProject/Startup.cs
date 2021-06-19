@@ -31,10 +31,10 @@ namespace FinalProject
             services.AddDbContext<FinalProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FinalProjectContext")));
 
-            /*services.AddSession(options =>
+            services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
-            });*/
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => 
             { 
                 options.LoginPath = "/Users/Login"; 
@@ -60,7 +60,7 @@ namespace FinalProject
 
             app.UseRouting();
 
-            //app.UseSession();
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -69,7 +69,7 @@ namespace FinalProject
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=Index}/{id?}");
             });
         }
     }
