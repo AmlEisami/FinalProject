@@ -4,44 +4,69 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<script>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+</script>
+
+<table>
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BranchName)
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BranchName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BranchManager)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Location)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BranchName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BranchManager.Fullname)
+                                </td>
+                                <td>
+                                    <a href="#" onclick="openMap()">
+                                        <img height="40px" src="/googleIcon.png" />
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                        <a asp-action="Create">
+                            <button id="fixedbutton" class="btn btn-secondary">
+                                +
+                            </button>
+                        </a>
+                    </tbody>
+                </table>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe id="urlIframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                        </iframe>
+                    </div>
+                </div>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BranchManager)
-            </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BranchName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BranchManager.Fullname)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
 </table>

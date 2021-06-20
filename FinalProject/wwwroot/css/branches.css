@@ -1,0 +1,21 @@
+﻿#fixedbutton {
+    position: fixed;
+    bottom: 90px;
+    right: 90px;
+    border-radius: 50%;
+    border: 1px solid grey;
+}
+
+#urlIframe {
+    overflow: hidden;
+    background: none !important;
+    height: 500px;
+    width: 600px;
+}
+
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 500px;
+    width: 600px;
+}
