@@ -26,25 +26,7 @@ namespace FinalProject.Controllers
             return View(await finalProjectContext.ToListAsync());
         }
 
-        // GET: Branches/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var branches = await _context.Branch
-                .Include(b => b.BranchManager)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (branches == null)
-            {
-                return NotFound();
-            }
-
-            return View(branches);
-        }
-
+       
         // GET: Branches/Create
         public IActionResult Create()
         {
