@@ -25,6 +25,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Branches" asp-action="Index">Store Branches</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (Context.Session.GetString("Permission") != null)
@@ -36,12 +39,12 @@
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @if (Context.Session.GetString("Permission") == "Admin" ||
-                                         Context.Session.GetString("Permission") == "Editor")
+                                        Context.Session.GetString("Permission") == "Editor")
                                     {
                                         <a class="nav-link text-dark" asp-controller="Products" asp-action="Create">Add Product</a>
                                     }
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Signout">Logout</a>
-                                    </div>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Signout">Logout</a>
+                                </div>
                             </li>
                         }
                         else

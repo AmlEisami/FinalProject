@@ -48,7 +48,7 @@ namespace FinalProject.Controllers
         // GET: Branches/Create
         public IActionResult Create()
         {
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "DisplayName");
+            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname");
             return View();
         }
 
@@ -82,7 +82,7 @@ namespace FinalProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "DisplayName", branches.UsersId);
+            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname", branches.UsersId);
             return View(branches);
         }
 
