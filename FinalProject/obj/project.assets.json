@@ -7148,19 +7148,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Naor\\.nuget\\packages\\": {}
+    "C:\\Users\\shake\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Naor\\Source\\Repos\\FinalProject\\FinalProject\\FinalProject.csproj",
+      "projectUniqueName": "C:\\Users\\shake\\Source\\Repos\\FinalProject\\FinalProject\\FinalProject.csproj",
       "projectName": "FinalProject",
-      "projectPath": "C:\\Users\\Naor\\Source\\Repos\\FinalProject\\FinalProject\\FinalProject.csproj",
-      "packagesPath": "C:\\Users\\Naor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Naor\\Source\\Repos\\FinalProject\\FinalProject\\obj\\",
+      "projectPath": "C:\\Users\\shake\\Source\\Repos\\FinalProject\\FinalProject\\FinalProject.csproj",
+      "packagesPath": "C:\\Users\\shake\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\shake\\Source\\Repos\\FinalProject\\FinalProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Naor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\shake\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7219,7 +7219,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
