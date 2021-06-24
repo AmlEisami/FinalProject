@@ -68,25 +68,25 @@ namespace FinalProject.Controllers
         private async void Signin(Users account)
         {
             var permission = from permissions in _context.Permissions
-                    where permissions.Id == account.PermissionsId
-                    select permissions;
-            
+                             where permissions.Id == account.PermissionsId
+                             select permissions;
+
             HttpContext.Session.SetString("Permission", permission.First().PermissionName);
             HttpContext.Session.SetString("Username", account.Username);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, account.Username), 
-                new Claim(ClaimTypes.Role, permission.First().PermissionName), 
-            }; 
-            
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme); 
-            
+                new Claim(ClaimTypes.Name, account.Username),
+                new Claim(ClaimTypes.Role, permission.First().PermissionName),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
             };
-            
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,new ClaimsPrincipal(claimsIdentity),authProperties);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
         }
 
         public async Task<IActionResult> Signout()
@@ -99,7 +99,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Users/Register
-            public IActionResult Register()
+        public IActionResult Register()
         {
             if (HttpContext.Session.GetString("Permission") != null)
             {
@@ -107,6 +107,13 @@ namespace FinalProject.Controllers
             }
             ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName");
             return View();
+        }
+
+        // GET: Products/Create
+        [Authorize(Roles = "Admin")]
+        public IActionResult Details()
+        {
+            return Register();
         }
 
         // POST: Users/Register
@@ -137,7 +144,7 @@ namespace FinalProject.Controllers
                     {
                         ViewData["Error"] = "Email is not available";
                     }
- 
+
                 }
                 else
                 {
@@ -148,27 +155,30 @@ namespace FinalProject.Controllers
             return View(users);
         }
 
-        /*
 
-                // GET: Users/Details/5
-                public async Task<IActionResult> Details(int? id)
-                {
-                    if (id == null)
-                    {
-                        return NotFound();
-                    }
+        [HttpGet]
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            var users = await _context.Users
+                .Include(u => u.Permission)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (users == null)
+            {
+                return NotFound();
+            }
 
-                    var users = await _context.Users
-                        .Include(u => u.Permission)
-                        .FirstOrDefaultAsync(m => m.Id == id);
-                    if (users == null)
-                    {
-                        return NotFound();
-                    }
+            return View(users);
+        }
 
-                    return View(users);
-                }
+        [HttpGet]
+        // GET: Users
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Users.ToListAsync());
+        } 
 
+        
                 // GET: Users/Edit/5
                 public async Task<IActionResult> Edit(int? id)
                 {
@@ -185,13 +195,13 @@ namespace FinalProject.Controllers
                     ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName", users.PermissionsId);
                     return View(users);
                 }
-
+        
                 // POST: Users/Edit/5
                 // To protect from overposting attacks, enable the specific properties you want to bind to.
                 // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
                 [HttpPost]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> Edit(int id, [Bind("Id,Fullname,Username,Password,Email,Birthdate,PermissionsId")] Users users)
+                [ValidateAntiForgeryToken]        
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Fullname,Username,Password,Email,Birthdate,PermissionsId")] Users users)
                 {
                     if (id != users.Id)
                     {
@@ -221,7 +231,7 @@ namespace FinalProject.Controllers
                     ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName", users.PermissionsId);
                     return View(users);
                 }
-
+        
                 // GET: Users/Delete/5
                 public async Task<IActionResult> Delete(int? id)
                 {
@@ -240,7 +250,7 @@ namespace FinalProject.Controllers
 
                     return View(users);
                 }
-
+        
                 // POST: Users/Delete/5
                 [HttpPost, ActionName("Delete")]
                 [ValidateAntiForgeryToken]
@@ -255,6 +265,6 @@ namespace FinalProject.Controllers
                 private bool UsersExists(int id)
                 {
                     return _context.Users.Any(e => e.Id == id);
-                }*/
+                }
     }
 }

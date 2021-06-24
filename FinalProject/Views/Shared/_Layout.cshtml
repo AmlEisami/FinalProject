@@ -36,12 +36,23 @@
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @if (Context.Session.GetString("Permission") == "Admin" ||
-                                         Context.Session.GetString("Permission") == "Editor")
+                                       Context.Session.GetString("Permission") == "Editor")
                                     {
                                         <a class="nav-link text-dark" asp-controller="Products" asp-action="Create">Add Product</a>
                                     }
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Signout">Logout</a>
-                                    </div>
+
+                                    @if (Context.Session.GetString("Permission") == "Admin")
+                                    {
+                                        <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Manage Users</a>
+                                    }
+
+                                    @if (Context.Session.GetString("Permission") != "Admin")
+                                    {
+                                        <a class="nav-link text-dark" asp-controller="Users" asp-action=Details asp-route-id="2">User Details</a>
+                                    }
+
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Signout">Logout</a>
+                                </div>
                             </li>
                         }
                         else
@@ -55,6 +66,8 @@
             </div>
         </nav>
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -66,6 +79,7 @@
             &copy; 2021 - FinalProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
