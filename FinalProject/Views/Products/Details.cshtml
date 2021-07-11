@@ -1,48 +1,67 @@
-﻿@model FinalProject.Models.Products
+﻿@using Microsoft.AspNetCore.Http
+@model FinalProject.Models.Products
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    .add-to-cart {
+        color: white;
+        background-color: #218838;
+        border: none;
+        border-radius: 3px;
+        padding: 3px 20px;
+    }
+</style>
 
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="text-center">
+    <h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
+
+    <div>
+        <video controls width="600" height="300">
+            <source src="~/videos/Fifa21.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayNameFor(model => model.Price):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Price)$
+                </div>
+            </div>
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayFor(model => model.Stock):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Stock)
+                </div>
+            </div>
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayFor(model => model.Description):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <input type="number" min="0" />
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-primary">Go Back</a>
+        </div>
+        @if (Context.Session.GetString("Permission") == "Admin")
+        {
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit Product</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete Product</a>
+            </div>
+        }
+    </div>
 </div>
