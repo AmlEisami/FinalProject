@@ -23,6 +23,8 @@ namespace FinalProject.Models
 
         public string Image { get; set; }
 
+        public string Video { get; set; }
+
         public List<Categories> Category { get; set; }
     }
 }
