@@ -211,7 +211,6 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\OrderDetails\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Create.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Delete.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Details.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Edit.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\Create.cshtml.g.cs
@@ -366,3 +365,4 @@ C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\_Logi
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\AccessDenied.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\MyOrders.cshtml.g.cs
