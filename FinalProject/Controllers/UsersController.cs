@@ -73,6 +73,7 @@ namespace FinalProject.Controllers
 
             HttpContext.Session.SetString("Permission", permission.First().PermissionName);
             HttpContext.Session.SetString("Username", account.Username);
+            HttpContext.Session.SetString("Userid", account.Id.ToString());
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, account.Username),

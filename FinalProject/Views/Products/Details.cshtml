@@ -49,10 +49,21 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4">
-            <input type="number" min="0" />
-            <button class="add-to-cart">Add to cart</button>
-        </div>
+        @if (Context.Session.GetString("Permission") != null)
+        {
+            <div class="mt-4">
+                <input type="number" min="0" value="0" id="quantity" />
+                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
+            </div>
+        }
+        else
+        {
+            /*<div class="mt-4">If you want to add this product to your cart, <a asp-area="" asp-controller="Users" asp-action="Login">Login</a> first</div>*/
+            <div class="mt-4">
+                <input type="number" min="0" value="0" id="quantity" />
+                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
+            </div>
+        }
         <div class="mt-4">
             <a asp-action="Index" class="btn btn-primary">Go Back</a>
         </div>
@@ -65,3 +76,7 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}
