@@ -6,15 +6,15 @@ let map;
 let service;
 let infowindow;
 
-function initMap() {
-    const sydney = new google.maps.LatLng(-33.867, 151.195);
+function initMap(Address) {
+    const israel = new google.maps.LatLng(-33.867, 151.195);
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: sydney,
+        center: israel,
         zoom: 15,
     });
     const request = {
-        query: "Museum of Contemporary Art Australia",
+        query: Address ? Address : "Esther Hamalka 23",
         fields: ["name", "geometry"]
     };
     service = new google.maps.places.PlacesService(map);
