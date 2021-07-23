@@ -22,7 +22,7 @@ namespace FinalProject.Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
-            var finalProjectContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.ProductName);
+            var finalProjectContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product);
             return View(await finalProjectContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace FinalProject.Controllers
 
             var orderDetails = await _context.OrderDetails
                 .Include(o => o.Order)
-                .Include(o => o.ProductName)
+                .Include(o => o.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderDetails == null)
             {
@@ -137,7 +137,7 @@ namespace FinalProject.Controllers
 
             var orderDetails = await _context.OrderDetails
                 .Include(o => o.Order)
-                .Include(o => o.ProductName)
+                .Include(o => o.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderDetails == null)
             {
