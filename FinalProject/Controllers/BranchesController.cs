@@ -26,29 +26,11 @@ namespace FinalProject.Controllers
             return View(await finalProjectContext.ToListAsync());
         }
 
-        // GET: Branches/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var branches = await _context.Branch
-                .Include(b => b.BranchManager)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (branches == null)
-            {
-                return NotFound();
-            }
-
-            return View(branches);
-        }
-
+       
         // GET: Branches/Create
         public IActionResult Create()
         {
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "DisplayName");
+            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname");
             return View();
         }
 
@@ -82,7 +64,7 @@ namespace FinalProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "DisplayName", branches.UsersId);
+            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname", branches.UsersId);
             return View(branches);
         }
 

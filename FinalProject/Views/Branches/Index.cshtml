@@ -1,47 +1,71 @@
 ﻿@model IEnumerable<FinalProject.Models.Branches>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<script>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BranchName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BranchManager)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BranchName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BranchManager.Fullname)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+
+</script>
+
+<table>
+	<thead>
+		<tr>
+			<th>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.BranchName)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.BranchManager)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Location)
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.BranchName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.BranchManager.Fullname)
+								</td>
+								<td>
+									<a href="#" onclick="initMap('@item.Location')">
+										<img height="40px" src="/googleIcon.png" />
+									</a>
+
+								</td>
+							</tr>
+						}
+
+						<a asp-action="Create">
+							<button id="fixedbutton" class="btn btn-secondary">
+								+
+							</button>
+						</a>
+					</tbody>
+				</table>
+			</th>
+			<th>
+				<div id="map" style="height: 600px; width: 400px;">
+				</div>
+			</th>
+		</tr>
+	</thead>
 </table>
+
+
+@section Scripts {
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOk0dHNgE4FgcKxVXPglSnPHQDfkQ7o6E&callback=initMap&libraries=places" async defer></script>
+	<script src="~/js/openMap.js"></script>
+}
