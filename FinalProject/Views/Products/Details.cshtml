@@ -19,34 +19,64 @@
     <h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
 
     <div>
-        <img alt="Image" class="mx-auto" src=@Html.DisplayFor(model => model.Image) height="400" width="400" />
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Price):</strong>
-            @Html.DisplayFor(model => model.Price)$
-        </p>
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Stock):</strong>
-            @Html.DisplayFor(model => model.Stock)
-        </p>
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Description):</strong>
-            @Html.DisplayFor(model => model.Description)
-        </p>
-        <p>
-            <input type="number" min="0" />
-            <button class="add-to-cart">Add to cart</button>
-        </p>
-    </div>
-    <div>
-        <p>
+        <video controls width="600" height="300">
+            <source src="~/videos/Fifa21.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayNameFor(model => model.Price):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Price)$
+                </div>
+            </div>
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayFor(model => model.Stock):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Stock)
+                </div>
+            </div>
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-sm-2 text-sm-left">
+                    <strong style="width:100px;">@Html.DisplayFor(model => model.Description):</strong>
+                </div>
+                <div class="col col-sm-2 text-sm-left">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+        @if (Context.Session.GetString("Permission") != null)
+        {
+            <div class="mt-4">
+                <input type="number" min="0" value="0" id="quantity" />
+                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
+            </div>
+        }
+        else
+        {
+            /*<div class="mt-4">If you want to add this product to your cart, <a asp-area="" asp-controller="Users" asp-action="Login">Login</a> first</div>*/
+            <div class="mt-4">
+                <input type="number" min="0" value="0" id="quantity" />
+                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
+            </div>
+        }
+        <div class="mt-4">
             <a asp-action="Index" class="btn btn-primary">Go Back</a>
-        </p>
+        </div>
         @if (Context.Session.GetString("Permission") == "Admin")
         {
-            <p>
+            <div class="mt-4">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit Product</a>
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete Product</a>
-            </p>
+            </div>
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}

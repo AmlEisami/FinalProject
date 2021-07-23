@@ -154,7 +154,6 @@ C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\Details.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\Edit.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\Index.cshtml.g.cs
-C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Create.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Delete.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Edit.cshtml.g.cs
@@ -212,7 +211,6 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\OrderDetails\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Create.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Delete.cshtml.g.cs
-C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Details.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Edit.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\Index.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Permissions\Create.cshtml.g.cs
@@ -363,6 +361,7 @@ C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\View
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\AccessDenied.cshtml.g.cs
+<<<<<<< HEAD
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\bin\Debug\net5.0\appsettings.json
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\bin\Debug\net5.0\FinalProject.exe
@@ -547,3 +546,10 @@ C:\Users\shake\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProj
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\ref\FinalProject.dll
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.pdb
 C:\Users\shake\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\FinalProject.genruntimeconfig.cache
+=======
+C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Shared\_LoginLayout.cshtml.g.cs
+C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\AccessDenied.cshtml.g.cs
+C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.cshtml.g.cs
+C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\MyOrders.cshtml.g.cs
+>>>>>>> main

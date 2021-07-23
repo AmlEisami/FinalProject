@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace FinalProject.Controllers
 {
@@ -20,6 +22,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Orders
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var finalProjectContext = _context.Orders.Include(o => o.User);
@@ -27,22 +30,12 @@ namespace FinalProject.Controllers
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [Authorize(Roles = "Admin, Editor, Client")]
+        public async Task<IActionResult> MyOrders()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orders = await _context.Orders
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
-
-            return View(orders);
+            var userId = Convert.ToInt32(HttpContext.Session.GetString("Userid"));
+            var myOrders = _context.Orders.Where(o => o.UsersId == userId);
+            return View(await myOrders.ToListAsync());
         }
 
         // GET: Orders/Create
