@@ -34,7 +34,10 @@ namespace FinalProject.Controllers
         public async Task<IActionResult> MyOrders()
         {
             var userId = Convert.ToInt32(HttpContext.Session.GetString("Userid"));
-            var myOrders = _context.Orders.Where(o => o.UsersId == userId);
+
+            var myOrders = _context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Where(m => m.UsersId == userId);
+
+
             return View(await myOrders.ToListAsync());
         }
 

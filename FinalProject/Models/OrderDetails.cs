@@ -12,7 +12,7 @@ namespace FinalProject.Models
 
         public int ProductsId { get; set; }
 
-        public Products ProductName { get; set; }
+        public Products Product { get; set; }
 
         [Required]
         public int Amount { get; set; }
