@@ -1,4 +1,5 @@
 ﻿@model FinalProject.Models.Users
+@using Microsoft.AspNetCore.Http
 
 @{
     ViewData["Title"] = "Edit";
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" readonly/>
+                <input asp-for="Username" class="form-control" readonly />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,9 +51,19 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (Context.Session.GetString("Permission") == "Admin")
+{
+    <div>
+        <a asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
+    </div>
+}
+@if (Context.Session.GetString("Permission") != "Admin")
+{
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.Id">Back to List</a>
+    </div>
+}
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
