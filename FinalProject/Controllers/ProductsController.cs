@@ -23,6 +23,7 @@ namespace FinalProject.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            ViewBag.cat = await _context.Categories.ToListAsync();
             return View(await _context.Products.ToListAsync());
         }
 
