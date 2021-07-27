@@ -19,6 +19,7 @@
     <h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
 
     <div>
+        <input id="itemId" type="hidden" value="@Html.DisplayFor(model => model.Id)" />
         <video controls width="600" height="300">
             <source src="~/videos/Fifa21.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -34,7 +35,7 @@
             </div>
             <div class="row justify-content-md-center mt-4">
                 <div class="col col-sm-2 text-sm-left">
-                    <strong style="width:100px;">@Html.DisplayFor(model => model.Stock):</strong>
+                    <strong style="width:100px;">@Html.DisplayNameFor(model => model.Stock):</strong>
                 </div>
                 <div class="col col-sm-2 text-sm-left">
                     @Html.DisplayFor(model => model.Stock)
@@ -53,7 +54,7 @@
         {
             <div class="mt-4">
                 <input type="number" min="0" value="0" id="quantity" />
-                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
+                <button class="add-to-cart">Add to cart</button>
             </div>
         }
         else

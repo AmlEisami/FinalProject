@@ -8,6 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.Dynamic;
+using Newtonsoft.Json.Linq;
 
 namespace FinalProject.Controllers
 {
@@ -42,6 +47,75 @@ namespace FinalProject.Controllers
             }
 
             return View(products);
+        }
+
+        // GET: Shopping Cart
+        public async Task<IActionResult> ShoppingCart()
+        {
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                return View();
+            }
+            
+            JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+            var cart = new int[dynamicCart.Count];
+            var i = 0;
+            foreach (var property in dynamicCart)
+            {
+                cart[i] = int.Parse(property.Key);
+                i++;
+            }
+            var products = from product in _context.Products
+                           where cart.Contains(product.Id)
+                           select product;
+            var test = products.ToListAsync();
+            return View(await products.ToListAsync());
+        }
+
+        // GET: item to add to cart
+        public void AddItemToCart(int itemId, int amount)
+        {
+            var test = HttpContext.Session.GetString("cart");
+            var cart = new ExpandoObject() as IDictionary<string, Object>;
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                cart.Add(itemId.ToString(), amount.ToString());
+            }
+            else
+            {
+                JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+                var isFound = false;
+                foreach (var property in dynamicCart)
+                {
+                    if (property.Key == itemId.ToString())
+                    {
+                        isFound = true;
+                        cart[property.Key] = (int.Parse(property.Value.ToString()) + amount).ToString();
+                    }
+                    else
+                    {
+                        cart[property.Key] = property.Value;
+                    }
+                }
+                if (!isFound)
+                {
+                    cart.Add(itemId.ToString(), amount.ToString());
+
+                }
+            }
+            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
+/*            var cart = JsonConvert.DeserializeObject(HttpContext.Session.GetString("cart"));
+            let cartItemId = cart.findIndex(item => item.id === itemId);
+            if (cartItemId === -1)
+            {
+                cart.push({ id: itemId, quan: Number($('#quantity').val()) })
+    }
+            else
+            {
+                cart[cartItemId] = { ...cart[cartItemId], quan: Number(cart[cartItemId].quan) + Number($('#quantity').val()) };
+            }
+            sessionStorage.setItem("cart", JSON.stringify(cart));*/
+            /*return View(await _context.Products.ToListAsync());*/
         }
 
         // GET: Products/Create

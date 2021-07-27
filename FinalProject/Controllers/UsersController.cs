@@ -92,7 +92,6 @@ namespace FinalProject.Controllers
 
         public async Task<IActionResult> Signout()
         {
-            //HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear();
 

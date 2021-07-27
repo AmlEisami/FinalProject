@@ -553,3 +553,4 @@ C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Login.
 C:\FinalProj\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
 C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Orders\MyOrders.cshtml.g.cs
 >>>>>>> main
+C:\Users\Naor\Source\Repos\FinalProject\FinalProject\obj\Debug\net5.0\Razor\Views\Products\ShoppingCart.cshtml.g.cs
