@@ -28,6 +28,7 @@ namespace FinalProject.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            ViewBag.cat = await _context.Categories.ToListAsync();
             return View(await _context.Products.ToListAsync());
         }
 
@@ -104,24 +105,13 @@ namespace FinalProject.Controllers
                 }
             }
             HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
-/*            var cart = JsonConvert.DeserializeObject(HttpContext.Session.GetString("cart"));
-            let cartItemId = cart.findIndex(item => item.id === itemId);
-            if (cartItemId === -1)
-            {
-                cart.push({ id: itemId, quan: Number($('#quantity').val()) })
-    }
-            else
-            {
-                cart[cartItemId] = { ...cart[cartItemId], quan: Number(cart[cartItemId].quan) + Number($('#quantity').val()) };
-            }
-            sessionStorage.setItem("cart", JSON.stringify(cart));*/
-            /*return View(await _context.Products.ToListAsync());*/
         }
 
         // GET: Products/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            ViewData["categories"] = new SelectList(_context.Categories, nameof(Categories.Id), nameof(Categories.CategoryName));
             return View();
         }
 
@@ -130,10 +120,13 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Stock,Description,Image")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Stock,Description,Image")] Products products, int[] Category)
         {
             if (ModelState.IsValid)
             {
+                products.Category = new List<Categories>();
+                products.Category.AddRange(_context.Categories.Where(x => Category.Contains(x.Id)));
+
                 _context.Add(products);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

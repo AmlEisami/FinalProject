@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    var Categories = (object[])TempData["SaveMsg"];
+}
+
 <head>
     <link rel="stylesheet" href="~/css/products.css" />
 </head>
@@ -13,31 +17,47 @@
 <!--<p>
     <a asp-action="Create">Create New</a>
 </p>-->
-<div class="container">
+
+<div style="width: 78%; height: 80%; float: left;">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4 product-item-wrapper">
+                    <div class="col-sm-12 product-item">
+                        <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
+                        <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
+                        <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
+                        <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
+                        <span>Stock: @Html.DisplayFor(modelItem => item.Stock)</span>
+                        <a class="btn btn-outline-success mb-2" asp-action="Details" asp-route-id="@item.Id">More Details</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div style="margin-left: 80%; height: 100%; padding-top: 20px;">
     <div class="row">
-        @foreach (var item in Model)
-        {
-        <div class="col-sm-4 product-item-wrapper">
-            <div class="col-sm-12 product-item">
-                <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
-                <img class="mx-auto" alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="200" width="200" />
-                <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
-                <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                <span>Stock: @Html.DisplayFor(modelItem => item.Stock)</span>
-                <a class="btn btn-outline-success mb-2" asp-action="Details" asp-route-id="@item.Id">More Details</a>
+        <header class="card-header">
+            <h6 class="title">Categories </h6>
+        </header>
+        <div class="filter-content">
+            <div class="card-body">
+                <form id="cat">
+                    @foreach (var item in @ViewBag.cat)
+                    {
+                        <label class="form-check">
+                            <input id="cat" name="cat" class="form-check-input" type="radio" value="" >
+                            <span class="form-check-label">
+                                @item.CategoryName
+                            </span>
+                         </label>
+                    }
+                </form>
+            </div> <!-- card-body.// -->
             </div>
-        </div>
-        <div class="col-sm-4 product-item-wrapper">
-            <div class="col-sm-12 product-item">
-                <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
-                <img class="mx-auto" alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="200" width="200" />
-                <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
-                <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                <span>Stock: @Html.DisplayFor(modelItem => item.Stock)</span>
-                <a class="btn btn-outline-success mb-2" asp-action="Details" asp-route-id="@item.Id">More Details</a>
-            </div>
-        </div>
-        }
     </div>
 </div>
 <!--<table class="table">

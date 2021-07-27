@@ -75,8 +75,8 @@
                                         <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Users</a>
                                     }
 
-                                    <a class="dropdown-item" asp-controller="Users" asp-action="Details" asp-route-id="2">User Details</a>
-                                    <a class="dropdown-item" asp-controller="Orders" asp-action="MyOrders">My Orders</a>
+                                    <a class="dropdown-item" asp-controller="Users" asp-action=Details asp-route-id="@Context.Session.GetString("Userid")">User Details</a>
+                                    <a class="dropdown-item" asp-controller="Orders" asp-action=MyOrders asp-route-id="2">My Orders</a>
 
                                     <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="Signout">Logout</a>
                                 </div>
@@ -102,7 +102,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="position:fixed;">
         <div class="container">
             &copy; 2021 - FinalProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
