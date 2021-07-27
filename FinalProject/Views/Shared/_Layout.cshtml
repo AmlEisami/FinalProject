@@ -51,21 +51,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="notification text-dark" asp-controller="Products" asp-action="ShoppingCart">
+                                <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
+                                <span>cart</span>
+                            </a>
+                        </li>
                         @if (Context.Session.GetString("Permission") != null)
                         {
-                            <li class="nav-item">
-                                <a href="#" class="notification text-dark">
-                                    <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
-                                    <span class="badge"></span>
-                                </a>
-                            </li>
                             <li class="nav-item ms-auto dropdown show">
                                 <a class="nav-link text-dark dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Hello, @Context.Session.GetString("Username")
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @if (Context.Session.GetString("Permission") == "Admin" ||
-                                        Context.Session.GetString("Permission") == "Editor")
+                                     Context.Session.GetString("Permission") == "Editor")
                                     {
                                         <a class="dropdown-item" asp-controller="Products" asp-action="Create">Add Product</a>
                                     }
@@ -102,7 +102,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="position:fixed;">
         <div class="container">
             &copy; 2021 - FinalProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

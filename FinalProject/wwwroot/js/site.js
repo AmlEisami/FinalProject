@@ -16,6 +16,10 @@ function getCartQuantity() {
 }
 
 $(function () {
-    //$('#cart1').load(getCartQuantity);
+    $('#cart2').triggerHandler('load', getCartQuantity);
+    $('#cart2').on('load', getCartQuantity);
     $('.add-to-cart').click(getCartQuantity);
+    $('#login').click(function () {
+        console.log("login");
+    })
 });

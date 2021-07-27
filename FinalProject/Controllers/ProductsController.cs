@@ -8,6 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.Dynamic;
+using Newtonsoft.Json.Linq;
 
 namespace FinalProject.Controllers
 {
@@ -45,10 +50,68 @@ namespace FinalProject.Controllers
             return View(products);
         }
 
+        // GET: Shopping Cart
+        public async Task<IActionResult> ShoppingCart()
+        {
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                return View();
+            }
+            
+            JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+            var cart = new int[dynamicCart.Count];
+            var i = 0;
+            foreach (var property in dynamicCart)
+            {
+                cart[i] = int.Parse(property.Key);
+                i++;
+            }
+            var products = from product in _context.Products
+                           where cart.Contains(product.Id)
+                           select product;
+            var test = products.ToListAsync();
+            return View(await products.ToListAsync());
+        }
+
+        // GET: item to add to cart
+        public void AddItemToCart(int itemId, int amount)
+        {
+            var test = HttpContext.Session.GetString("cart");
+            var cart = new ExpandoObject() as IDictionary<string, Object>;
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                cart.Add(itemId.ToString(), amount.ToString());
+            }
+            else
+            {
+                JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+                var isFound = false;
+                foreach (var property in dynamicCart)
+                {
+                    if (property.Key == itemId.ToString())
+                    {
+                        isFound = true;
+                        cart[property.Key] = (int.Parse(property.Value.ToString()) + amount).ToString();
+                    }
+                    else
+                    {
+                        cart[property.Key] = property.Value;
+                    }
+                }
+                if (!isFound)
+                {
+                    cart.Add(itemId.ToString(), amount.ToString());
+
+                }
+            }
+            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
+        }
+
         // GET: Products/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            ViewData["categories"] = new SelectList(_context.Categories, nameof(Categories.Id), nameof(Categories.CategoryName));
             return View();
         }
 
@@ -57,10 +120,13 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Stock,Description,Image")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Stock,Description,Image")] Products products, int[] Category)
         {
             if (ModelState.IsValid)
             {
+                products.Category = new List<Categories>();
+                products.Category.AddRange(_context.Categories.Where(x => Category.Contains(x.Id)));
+
                 _context.Add(products);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
