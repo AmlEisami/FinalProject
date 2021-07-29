@@ -26,10 +26,17 @@ namespace FinalProject.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<ViewResult> Index(string searchString, string price, string category)
         {
-            ViewBag.cat = await _context.Categories.ToListAsync();
-            return View(await _context.Products.ToListAsync());
+            CombinedModel prodAndCat = new CombinedModel();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            prodAndCat.CategoryNames = await _context.Categories.Select(c => c.CategoryName).ToListAsync();
+            prodAndCat.Products = _context.Products.Where(p => 
+                                                    (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
+                                                    (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
+            
+
+            return View(prodAndCat);
         }
 
         // GET: Products/Details/5

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FinalProject.Models.Products>
+﻿@model CombinedModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,14 +14,11 @@
 
 <div class="title"><h1>Products</h1></div>
 
-<!--<p>
-    <a asp-action="Create">Create New</a>
-</p>-->
 
 <div style="width: 78%; height: 80%; float: left;">
     <div class="container">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Products)
             {
                 <div class="col-sm-4 product-item-wrapper">
                     <div class="col-sm-12 product-item">
@@ -39,73 +36,46 @@
 </div>
 
 <div style="margin-left: 80%; height: 100%; padding-top: 20px;">
-    <div class="row">
-        <header class="card-header">
-            <h6 class="title">Categories </h6>
-        </header>
-        <div class="filter-content">
-            <div class="card-body">
-                <form id="cat">
-                    @foreach (var item in @ViewBag.cat)
-                    {
-                        <label class="form-check">
-                            <input id="cat" name="cat" class="form-check-input" type="radio" value="" >
-                            <span class="form-check-label">
-                                @item.CategoryName
-                            </span>
-                         </label>
-                    }
-                </form>
-            </div> <!-- card-body.// -->
-            </div>
-    </div>
+	<div class="row">
+		<header class="card-header">
+			<h6 class="title">Categories </h6>
+		</header>
+		<div class="filter-content">
+			<div class="card-body">
+				<form id="cat">
+					@foreach (var item in @ViewBag.Categories)
+					{
+						<label class="form-check">
+							<input id="cat" name="cat" class="form-check-input" type="radio" value="">
+							<span class="form-check-label">
+								@item.CategoryName
+							</span>
+						</label>
+					}
+				</form>
+			</div> <!-- card-body.// -->
+		</div>
+	</div>
+	<div class="row">
+		<header class="card-header">
+			<h6 class="title">Search </h6>
+		</header>
+		<div class="filter-content">
+			<div class="card-body">
+				<div class="row"></div>
+				<div class="col-2">
+					@using (Html.BeginForm())
+					{
+					<p>
+						Name: @Html.TextBox("SearchString")
+						MaxPrice: @Html.TextBox("Price")
+						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category", "Category", "Category"), " Category ")
+						<input type="submit" value="Search" />
+						
+					</p>
+					}
+				</div>
+			</div> 
+		</div>
+	</div>
 </div>
-<!--<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>-->
