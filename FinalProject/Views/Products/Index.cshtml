@@ -69,7 +69,7 @@
 					<p>
 						Name: @Html.TextBox("SearchString")
 						MaxPrice: @Html.TextBox("Price")
-						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category", "Category", "Category"), " Category ")
+						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category ")
 						<input type="submit" value="Search" />
 						
 					</p>
