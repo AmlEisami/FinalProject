@@ -9,78 +9,58 @@
     <link rel="stylesheet" href="~/css/products.css" />
 </head>
 
-<div class="title"><h1>Shopping Cart</h1></div>
-
 @if (Context.Session.GetString("cart") == null)
 {
-    <div>Shopping cart is empty</div>
+    <h1 class="text-center">Shopping cart is empty</h1>
+    <h6 class="text-center"><a asp-controller="Products" asp-action="Index">Click here</a> and add some products</h6>
 }
 else
 {
+    var totalAmount = 0.0;
+    <div class="title"><h1>Shopping Cart</h1></div>
     <div class="container">
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-sm-4 product-item-wrapper">
-                    <div class="col-sm-12 product-item">
-                        <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
-                        <img class="mx-auto" alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="200" width="200" />
-                        <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
-                        <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                        <span>Stock: @Html.DisplayFor(modelItem => item.Stock)</span>
-                        <input type="number" min="0" value="0" id="quantity" />
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-}
-<!--<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-6 product-item-wrapper">
+                    <div class="col-sm-12 product-item" style="display:flex; flex-direction:row; justify-content:space-around">
+                        <div class="columnAndCenter">
+                            <strong>@Html.DisplayFor(modelItem => item.ProductName)</strong>
+                            <img alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="100" width="100" />
+                        </div>
+                        <div class="columnAndCenter">
+                            <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                            <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
+                            @foreach (var item2 in @ViewBag.amount.Items)
+                            {
+                                if (int.Parse(item2.Name) == item.Id)
+                                {
+                                    totalAmount = totalAmount + (double.Parse(@item2.Value.ToString()) * item.Price);
+                                    <div>
+                                                <span>amount:</span>
+
+
+                                                <input type="number" min="0" value="@item2.Value" id="cartQuantity" style="width:30%" />
+
+
+                                            </div>
+                                    break;
+                                }
+                            }
+                            <input id="cartItemId" type="hidden" value="@item.Id" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>-->
+        <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
+            <input id="totalAmount" value="@totalAmount" disabled class="mt-2" />
+            <input id="address" placeholder="Insert full address" class="mt-2" required />
+            <button type="submit" class="bg-success text-white mt-2">Send order</button>
+        </form>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}

@@ -48,22 +48,30 @@ namespace FinalProject.Controllers
             return View();
         }
 
+        public void CreateOrder(string address)
+        {
+            if (address == null)
+            {
+                ViewData["Error2"] = "Sorry, username and/or password are incorrect!";
+            }
+        }
+
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UsersId,Address,OrderPrice,OrderDate")] Orders orders)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(orders);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Id", orders.UsersId);
-            return View(orders);
-        }
+        /*        [HttpPost]
+                [ValidateAntiForgeryToken]
+                public async Task<IActionResult> Create([Bind("Id,UsersId,Address,OrderPrice,OrderDate")] Orders orders)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(orders);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Id", orders.UsersId);
+                    return View(orders);
+                }*/
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
