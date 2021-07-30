@@ -27,4 +27,10 @@ namespace FinalProject.Models
 
         public List<Categories> Category { get; set; }
     }
+
+    public class CombinedModel 
+    {
+        public IEnumerable<FinalProject.Models.Products> Products { get; set; }
+        public IEnumerable<string> CategoryNames { get; set; }
+    }
 }
