@@ -22,6 +22,8 @@ namespace FinalProject.Data
 
         public DbSet<FinalProject.Models.Products> Products { get; set; }
 
+        public DbSet<FinalProject.Models.CategoriesProducts> CategoriesProducts { get; set; }
+
         public DbSet<FinalProject.Models.OrderDetails> OrderDetails { get; set; }
 
         public DbSet<FinalProject.Models.Permissions> Permissions { get; set; }

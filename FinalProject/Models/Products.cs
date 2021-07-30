@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
+
     public class Products
     {
         public int Id { get; set; }
@@ -27,7 +31,6 @@ namespace FinalProject.Models
 
         public List<Categories> Category { get; set; }
     }
-
     public class CombinedModel 
     {
         public IEnumerable<FinalProject.Models.Products> Products { get; set; }

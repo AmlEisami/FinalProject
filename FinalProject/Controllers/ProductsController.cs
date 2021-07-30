@@ -36,9 +36,19 @@ namespace FinalProject.Controllers
             prodAndCat.Products = _context.Products.Where(p => 
                                                     (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
                                                     (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
-
-
-
+            prodAndCat.Products = (from product in _context.Products
+                     from categories in product.Category
+                     select new  {
+                         product.Id,
+                         product.Image,
+                         product.Price,
+                         product.ProductName,
+                         product.Stock,
+                         product.Video,
+                         product.Description,
+                         product.Category
+                     }).Where(p => (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
+                                   (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true)).AsEnumerable() as IEnumerable<Products>;
 
             return View(prodAndCat);
         }
@@ -87,36 +97,36 @@ namespace FinalProject.Controllers
         // GET: item to add to cart
         public void AddItemToCart(int itemId, int amount)
         {
-            var test = HttpContext.Session.GetString("cart");
-            var cart = new ExpandoObject() as IDictionary<string, Object>;
-            if (HttpContext.Session.GetString("cart") == null)
-            {
-                cart.Add(itemId.ToString(), amount.ToString());
-            }
-            else
-            {
-                JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
-                var isFound = false;
-                foreach (var property in dynamicCart)
-                {
-                    if (property.Key == itemId.ToString())
-                    {
-                        isFound = true;
-                        cart[property.Key] = (int.Parse(property.Value.ToString()) + amount).ToString();
-                    }
-                    else
-                    {
-                        cart[property.Key] = property.Value;
-                    }
-                }
-                if (!isFound)
-                {
-                    cart.Add(itemId.ToString(), amount.ToString());
+			var test = HttpContext.Session.GetString("cart");
+			var cart = new ExpandoObject() as IDictionary<string, Object>;
+			if (HttpContext.Session.GetString("cart") == null)
+			{
+				cart.Add(itemId.ToString(), amount.ToString());
+			}
+			else
+			{
+				JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+				var isFound = false;
+				foreach (var property in dynamicCart)
+				{
+					if (property.Key == itemId.ToString())
+					{
+						isFound = true;
+						cart[property.Key] = (int.Parse(property.Value.ToString()) + amount).ToString();
+					}
+					else
+					{
+						cart[property.Key] = property.Value;
+					}
+				}
+				if (!isFound)
+				{
+					cart.Add(itemId.ToString(), amount.ToString());
 
-                }
-            }
-            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
-        }
+				}
+			}
+			HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
+		}
 
         // GET: Products/Create
         [Authorize(Roles = "Admin")]
