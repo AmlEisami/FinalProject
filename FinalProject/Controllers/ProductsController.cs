@@ -70,7 +70,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Shopping Cart
-        public async Task<IActionResult> ShoppingCart()
+        public async Task<IActionResult> ShoppingCart(string searchString, string price)
         {
             if (HttpContext.Session.GetString("cart") == null)
             {
@@ -85,9 +85,10 @@ namespace FinalProject.Controllers
                 cart[i] = int.Parse(property.Key);
                 i++;
             }
-            var products = from product in _context.Products
+            var products = (from product in _context.Products
                            where cart.Contains(product.Id)
-                           select product;
+                           select product).Where(p => (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
+                                                (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
             ViewData["amount"] = new SelectList(dynamicCart);
             return View(await products.ToListAsync());
         }
