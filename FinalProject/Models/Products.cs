@@ -33,7 +33,7 @@ namespace FinalProject.Models
     }
     public class CombinedModel 
     {
-        public IEnumerable<FinalProject.Models.Products> Products { get; set; }
+        public IEnumerable<Products> Products { get; set; }
         public IEnumerable<string> CategoryNames { get; set; }
     }
 }
