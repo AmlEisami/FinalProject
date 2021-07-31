@@ -18,49 +18,72 @@ else
 {
     var totalAmount = 0.0;
     <div class="title"><h1>Shopping Cart</h1></div>
-    <div class="container">
-        @foreach (var item in Model)
-        {
-            <div class="row justify-content-sm-center">
-                <div class="col-sm-6 product-item-wrapper">
-                    <div class="col-sm-12 product-item" style="display:flex; flex-direction:row; justify-content:space-around">
-                        <div class="columnAndCenter">
-                            <strong>@Html.DisplayFor(modelItem => item.ProductName)</strong>
-                            <img alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="100" width="100" />
-                        </div>
-                        <div class="columnAndCenter">
-                            <span>@Html.DisplayFor(modelItem => item.Description)</span>
-                            <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                            @foreach (var item2 in @ViewBag.amount.Items)
-                            {
-                                if (int.Parse(item2.Name) == item.Id)
-                                {
-                                    totalAmount = totalAmount + (double.Parse(@item2.Value.ToString()) * item.Price);
-                                    <div>
-                                                <span>amount:</span>
+	<div class="container">
+		@foreach (var item in Model)
+		{
+			<div class="row justify-content-sm-center">
+				<div class="col-sm-6 product-item-wrapper">
+					<div class="col-sm-12 product-item" style="display:flex; flex-direction:row; justify-content:space-around">
+						<div class="columnAndCenter">
+							<strong>@Html.DisplayFor(modelItem => item.ProductName)</strong>
+							<img alt="Image" src=@Html.DisplayFor(modelItem => item.Image) height="100" width="100" />
+						</div>
+						<div class="columnAndCenter">
+							<span>@Html.DisplayFor(modelItem => item.Description)</span>
+							<span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
+							@foreach (var item2 in @ViewBag.amount.Items)
+							{
+								if (int.Parse(item2.Name) == item.Id)
+								{
+									totalAmount = totalAmount + (double.Parse(@item2.Value.ToString()) * item.Price);
+									<div>
+										<span>amount:</span>
 
 
-                                                <input type="number" min="0" value="@item2.Value" id="cartQuantity" style="width:30%" />
+										<input type="number" min="0" value="@item2.Value" id="cartQuantity" style="width:30%" />
 
 
-                                            </div>
-                                    break;
-                                }
-                            }
-                            <input id="cartItemId" type="hidden" value="@item.Id" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
-            <input id="totalAmount" value="@totalAmount" disabled class="mt-2" />
-            <input id="address" placeholder="Insert full address" class="mt-2" required />
-            <button type="submit" class="bg-success text-white mt-2">Send order</button>
-        </form>
-    </div>
-}
+									</div>
+									break;
+								}
+							}
+							<input id="cartItemId" type="hidden" value="@item.Id" />
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+		<div style="margin-left: 80%; height: 100%; padding-top: 20px;">
+			<div class="row">
+				<header class="card-header">
+					<h6 class="title">Search </h6>
+				</header>
+				<div class="filter-content">
+					<div class="card-body">
+						<div class="row"></div>
+						<div class="col-2">
+							@using (Html.BeginForm())
+							{
+								<p>
+									Name: @Html.TextBox("SearchString")
+									MaxPrice: @Html.TextBox("Price")
+									<input type="submit" value="Search" />
 
-@section Scripts {
-    <script src="~/js/products.js"></script>
-}
+								</p>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			<form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
+				<input id="totalAmount" value="@totalAmount" disabled class="mt-2" />
+				<input id="address" placeholder="Insert full address" class="mt-2" required />
+				<button type="submit" class="bg-success text-white mt-2">Send order</button>
+			</form>
+		</div>
+		}
+
+		@section Scripts {
+			<script src="~/js/products.js"></script>
+		}
