@@ -69,46 +69,66 @@ namespace FinalProject.Controllers
             var products = from product in _context.Products
                            where cart.Contains(product.Id)
                            select product;
-            var test = products.ToListAsync();
+            ViewData["amount"] = new SelectList(dynamicCart);
             return View(await products.ToListAsync());
         }
 
-        // GET: item to add to cart
+        // GET: add item to cart
         public void AddItemToCart(int itemId, int amount)
         {
-            var test = HttpContext.Session.GetString("cart");
-            var cart = new ExpandoObject() as IDictionary<string, Object>;
+            JObject dynamicCart = new JObject();
             if (HttpContext.Session.GetString("cart") == null)
             {
-                cart.Add(itemId.ToString(), amount.ToString());
+                dynamicCart.Add(itemId.ToString(), amount.ToString());
+
+            } else
+            {
+                dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+                if (dynamicCart[itemId.ToString()] != null)
+                {
+                    amount = amount + int.Parse(dynamicCart[itemId.ToString()].ToString());
+                }
+                dynamicCart[itemId.ToString()] = amount.ToString();
+            }
+            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dynamicCart));
+        }
+
+        // GET: remove item from cart
+        public void RemoveItemFromCart(int itemId)
+        {
+            JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+            dynamicCart.Remove(itemId.ToString());
+            if (dynamicCart.Count == 0)
+            {
+                HttpContext.Session.Remove("cart");
             }
             else
             {
-                JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
-                var isFound = false;
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dynamicCart));
+                var cart = new int[dynamicCart.Count];
+                var i = 0;
                 foreach (var property in dynamicCart)
                 {
-                    if (property.Key == itemId.ToString())
-                    {
-                        isFound = true;
-                        cart[property.Key] = (int.Parse(property.Value.ToString()) + amount).ToString();
-                    }
-                    else
-                    {
-                        cart[property.Key] = property.Value;
-                    }
+                    cart[i] = int.Parse(property.Key);
+                    i++;
                 }
-                if (!isFound)
-                {
-                    cart.Add(itemId.ToString(), amount.ToString());
-
-                }
+                var products = from product in _context.Products
+                               where cart.Contains(product.Id)
+                               select product;
+                ViewData["amount"] = new SelectList(dynamicCart);
             }
-            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cart));
         }
 
-        // GET: Products/Create
-        [Authorize(Roles = "Admin")]
+        // GET: change amount of product in shopping cart
+        public void ChangeQuantity(int itemId, int amount)
+        {
+            JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+            dynamicCart[itemId.ToString()] = amount.ToString();
+            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dynamicCart));
+        }
+
+       // GET: Products/Create
+       [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["categories"] = new SelectList(_context.Categories, nameof(Categories.Id), nameof(Categories.CategoryName));

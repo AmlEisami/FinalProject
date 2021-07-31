@@ -24,7 +24,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-sm-4 product-item-wrapper">
-                    <div class="col-sm-12 product-item">
+                    <div class="col-sm-12 product-item product-main">
                         <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
                         <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
                         <h6>@Html.DisplayFor(modelItem => item.Description)</h6>

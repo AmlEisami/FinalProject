@@ -2,3 +2,10 @@
     text-align:center;
     text-shadow: 0 2px 3px #ccc;
 }
+
+.columnAndCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
