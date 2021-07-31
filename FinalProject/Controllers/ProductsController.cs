@@ -33,12 +33,20 @@ namespace FinalProject.Controllers
             ViewBag.Categories = await _context.Categories.ToListAsync();
             var currentCategory = await  _context.Categories.Where(c => c.CategoryName == categoryNames).ToListAsync();
             prodAndCat.CategoryNames = await _context.Categories.Select(c => c.CategoryName).ToListAsync();
-            prodAndCat.Products = _context.Products.Where(p => 
-                                                    (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
-                                                    (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
-
-
-
+            prodAndCat.Products = (from product in _context.Products
+                     from categories in product.Category
+                     select new Products{
+                         Id = product.Id,
+                         Image = product.Image,
+                         Price = product.Price,
+                         ProductName = product.ProductName,
+                         Stock = product.Stock,
+                         Video = product.Video,
+                         Description = product.Description,
+                         Category = product.Category
+                     }).AsEnumerable().Where(p => (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
+                                   (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true) &&
+                                   (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true));
 
             return View(prodAndCat);
         }
