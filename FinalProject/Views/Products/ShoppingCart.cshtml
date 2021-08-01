@@ -34,7 +34,7 @@ else
                             <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
                             <div>
                                 <span>amount:</span>
-                                <input type="number" min="0" value="@ViewBag.amount.Items[item.Id.ToString()]" id="cartQuantity" style="width:30%" />
+                                <input type="number" min="0" value="@ViewBag.amount.Items[item.Id.ToString()]" id="cartQuantity_@item.Id" onchange="changeQuantity(@item.Id)" style="width:30%" />
                             </div>
                             <input class="cartItemId" type="hidden" value="@item.Id" />
                         </div>
@@ -43,11 +43,12 @@ else
                 </div>
             </div>
         }
-        <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
-            <div>Order Price: <input id="totalAmount" value="@totalAmount" disabled class="mt-2" /></div>
-            <input id="address" placeholder="Insert full address" class="mt-2" required />
-            <button type="submit" class="bg-success text-white mt-2">Send order</button>
-        </form>
+    <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
+        <div>Order Price: <input id="totalAmount" value="@totalAmount" disabled class="mt-2" /></div>
+        <input id="address" placeholder="Insert full address" class="mt-2" required />
+        <button type="submit" class="bg-success text-white mt-2">Send order</button>
+        <div id="cartEmpty" class="text-danger" hidden>Your cart is empty!</div>
+    </form>
     </div>
 }
 

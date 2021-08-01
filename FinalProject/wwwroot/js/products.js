@@ -1,4 +1,14 @@
-﻿function removeItemFromCart(itemId) {
+﻿function changeQuantity(itemId) {
+    $.ajax({
+        url: '/Products/ChangeQuantity',
+        data: {
+            'itemId': itemId,
+            'amount': $('#cartQuantity_' + itemId).val(),
+        }
+    });
+};
+
+function removeItemFromCart(itemId) {
     $.ajax({
         url: '/Products/RemoveItemFromCart',
         data: {
@@ -17,16 +27,11 @@ $(function () {
                 'itemId': $('#itemId').val(),
                 'amount': $('#quantity').val(),
             }
-        });
-    });
-
-    $('#cartQuantity').change(function () {
-        $.ajax({
-            url: '/Products/ChangeQuantity',
-            data: {
-                'itemId': $('#cartItemId').val(),
-                'amount': $('#cartQuantity').val(),
-            }
+        }).done(function () {
+            var toastHTMLElement = $('#liveToast');
+            var toastElement = new bootstrap.Toast(toastHTMLElement);
+            toastElement.show();
+            $('#quantity').val("0");
         });
     });
 
@@ -36,6 +41,11 @@ $(function () {
             url: '/Orders/CreateOrder',
             data: {
                 'address': $('#address').val(),
+            }
+        }).done(function (isSuccess) {
+            $('#cartEmpty').attr("hidden", isSuccess);
+            if (isSuccess) {
+                location.pathname = '/Orders/MyOrders';
             }
         });
     });
