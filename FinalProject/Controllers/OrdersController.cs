@@ -59,7 +59,6 @@ namespace FinalProject.Controllers
 
             JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
             var numOfOD = 0;
-            Products newStockProduct;
             foreach (var property in dynamicCart)
             {
                 if (int.Parse(property.Value.ToString()) > 0)
@@ -69,15 +68,7 @@ namespace FinalProject.Controllers
                                   where p.Id == int.Parse(property.Key)
                                   select p;
 
-                    newStockProduct = new();
-                    newStockProduct = product.First();
-
-                    newStockProduct.Stock -= int.Parse(property.Value.ToString());
-
                     orderPrice += product.First().Price * int.Parse(property.Value.ToString());
-
-                    _context.Update(newStockProduct);
-                    await _context.SaveChangesAsync();
                 }
             }
             if (numOfOD > 0) 

@@ -20,9 +20,6 @@ namespace FinalProject.Models
         [Required]
         public double Price { get; set; }
 
-        [Required]
-        public int Stock { get; set; }
-
         public string Description { get; set; }
 
         public string Image { get; set; }

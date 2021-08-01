@@ -40,7 +40,6 @@ namespace FinalProject.Controllers
                          Image = product.Image,
                          Price = product.Price,
                          ProductName = product.ProductName,
-                         Stock = product.Stock,
                          Video = product.Video,
                          Description = product.Description,
                          Category = product.Category
@@ -160,7 +159,7 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Stock,Description,Image")] Products products, int[] Category)
+        public async Task<IActionResult> Create([Bind("Id,ProductName,Price,Description,Image")] Products products, int[] Category)
         {
             if (ModelState.IsValid)
             {
@@ -196,7 +195,7 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,Price,Stock,Description,Image")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,Price,Description,Image")] Products products)
         {
             if (id != products.Id)
             {
