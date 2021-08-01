@@ -45,7 +45,8 @@ namespace FinalProject.Controllers
                          Category = product.Category
                      }).AsEnumerable().Where(p => (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
                                    (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true) &&
-                                   (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true));
+                                   (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true))
+                                   .GroupBy(p => p.Id).Select(p => p.First()); ;
 
             return View(prodAndCat);
         }
@@ -87,7 +88,7 @@ namespace FinalProject.Controllers
             var products = (from product in _context.Products
                            where cart.Contains(product.Id)
                            select product).Where(p => (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
-                                                (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
+                                                      (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
             ViewData["amount"] = new SelectList(dynamicCart);
             return View(await products.ToListAsync());
         }
