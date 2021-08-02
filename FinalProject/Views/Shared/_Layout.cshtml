@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <header>
+    <header style="position:fixed;width:100%;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Products" asp-action="Index">FinalProject</a>
@@ -96,13 +96,13 @@
     </header>
 
 
-    <div class="container">
+    <div class="container" style="padding-top:70px;overflow:hidden;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="position:fixed;">
+    <footer class="border-top footer text-muted" style="position:fixed;background-color:#fff;">
         <div class="container">
             &copy; 2021 - FinalProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
