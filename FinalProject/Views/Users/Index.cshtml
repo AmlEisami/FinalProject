@@ -1,62 +1,80 @@
 ﻿@model IEnumerable<FinalProject.Models.Users>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<div class="title"><h1>Manage Users</h1></div>
+<h1>Users</h1>
+
+@using (Html.BeginForm())
+{
+	<div class="row">
+		<div class="col-1">Full Name:</div>
+		<div class="col-2"> @Html.TextBox("Fullname")</div>
+		<div class="col-1">Email :</div>
+		<div class="col-2"> @Html.TextBox("Email")</div>
+		<div class="col-1">Username:</div>
+		<div class="col-2"> @Html.TextBox("Username")</div>
+		<div class="col-1">
+			<input type="submit" value="Search" />
+		</div>
+	</div>
+}
+<!--<div>
+		<a asp-action="Login">Sign up</a>
+	</div> -->
 
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Fullname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Birthdate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Permission)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fullname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Birthdate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PermissionsId)
-                </td>
-                <td>
-                    <a type="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;
-                    <a type="button" class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Fullname)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Username)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Password)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Email)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Birthdate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Permission)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Fullname)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Username)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Password)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Birthdate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PermissionsId)
+				</td>
+				<td>
+					<a type="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a type="button" class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
