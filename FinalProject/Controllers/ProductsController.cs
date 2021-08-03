@@ -48,7 +48,7 @@ namespace FinalProject.Controllers
                                                  (!String.IsNullOrEmpty(searchString) ? p.ProductName.ToLower().Contains(searchString.ToLower()) : true) &&
                                                  (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true))
                                                  .GroupBy(p => p.Id).Select(p => p.First());
-
+                                                 
             return View(prodAndCat);
         }
 
@@ -173,11 +173,11 @@ namespace FinalProject.Controllers
                 var pageId = "139699228237162";
 
                 dynamic messagePost = new ExpandoObject();
-                messagePost.access_token = "EAAYh1wlHGjkBAMj5GzQhWZBC8RboZCtx4BrNU0ZBfvrVTbXOvCtLJL3A1szfyJvuW5JL7Wu0CcxtFJ0Gb8ZBZCI6p4xsBAQru89Y5ROhw7O8WayE3QVUcIZC8InZASZCeUYK2NAa7FBV5sI2mJUr7EQC6T63Un0tmG2NsI3AYN7TvqLdJifGM4Py";
+                messagePost.access_token = "EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD";
                 messagePost.message = "A new product has been published! Come check out \"" + products.ProductName + "\"";
                 messagePost.description = "Yay";
 
-                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBAMj5GzQhWZBC8RboZCtx4BrNU0ZBfvrVTbXOvCtLJL3A1szfyJvuW5JL7Wu0CcxtFJ0Gb8ZBZCI6p4xsBAQru89Y5ROhw7O8WayE3QVUcIZC8InZASZCeUYK2NAa7FBV5sI2mJUr7EQC6T63Un0tmG2NsI3AYN7TvqLdJifGM4Py");
+                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD");
                     var result = app.Post("/" + pageId + "/feed", messagePost);
 
                 return RedirectToAction(nameof(Index));

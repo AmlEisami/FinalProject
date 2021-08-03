@@ -4,10 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-@{
-    var Categories = (object[])TempData["SaveMsg"];
-}
-
 <head>
     <link rel="stylesheet" href="~/css/products.css" />
 </head>
@@ -15,8 +11,8 @@
 <div class="title"><h1>Products</h1></div>
 
 
-<div style="width: 78%; height: 80%; float: left;">
-    <div class="container">
+<div style="height: 80%; float: left;display:flex;justify-content:center;">
+    <div class="container" style="width:80%">
         <div class="row">
             @foreach (var item in Model.Products)
             {
@@ -32,34 +28,10 @@
             }
         </div>
     </div>
-    <canvas id="GeeksforGeeks" width="200"
-            height="100" style="border:1px solid black">
-        sadasd
-    </canvas>
 </div>
 
-<div style="margin-left: 80%; height: 100%; padding-top: 20px;">
-	<div class="row">
-		<header class="card-header">
-			<h6 class="title">Categories </h6>
-		</header>
-		<div class="filter-content">
-			<div class="card-body">
-				<form id="cat">
-					@foreach (var item in @ViewBag.Categories)
-					{
-						<label class="form-check">
-							<input id="cat" name="cat" class="form-check-input" type="radio" value="">
-							<span class="form-check-label">
-								@item.CategoryName
-							</span>
-						</label>
-					}
-				</form>
-			</div> <!-- card-body.// -->
-		</div>
-	</div>
-	<div class="row">
+<div class="searchStyle">
+    <div class="row">
 		<header class="card-header">
 			<h6 class="title">Search </h6>
 		</header>
@@ -72,13 +44,12 @@
 					<p>
 						Name: @Html.TextBox("SearchString")
 						MaxPrice: @Html.TextBox("Price")
-						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category ")
+						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category")
 						<input type="submit" value="Search" />
-						
 					</p>
 					}
 				</div>
-			</div> 
+			</div>
 		</div>
 	</div>
 </div>
