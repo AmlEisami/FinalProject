@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace FinalProject.Controllers
 {
@@ -23,11 +25,13 @@ namespace FinalProject.Controllers
         public async Task<IActionResult> Index()
         {
             var finalProjectContext = _context.Branch.Include(b => b.BranchManager);
+            ViewBag.permission = HttpContext.Session.GetString("Permissions");
             return View(await finalProjectContext.ToListAsync());
         }
 
 
         // GET: Branches/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname");
@@ -39,6 +43,7 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,BranchName,Location,UsersId")] Branches branches)
         {
             if (ModelState.IsValid)
