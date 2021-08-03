@@ -149,7 +149,7 @@ namespace FinalProject.Controllers
         }
 
        // GET: Products/Create
-       [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin,Editor")]
         public IActionResult Create()
         {
             ViewData["categories"] = new SelectList(_context.Categories, nameof(Categories.Id), nameof(Categories.CategoryName));
@@ -186,7 +186,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Products/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -238,7 +238,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Products/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

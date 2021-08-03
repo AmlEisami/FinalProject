@@ -132,7 +132,7 @@ namespace FinalProject.Controllers
 
                         Signin(newUser);
 
-                        return RedirectToAction(nameof(Index), "Home");
+                        return RedirectToAction(nameof(Index), "Products");
                     } else
                     {
                         ViewData["Error"] = "Email is not available";
@@ -153,6 +153,16 @@ namespace FinalProject.Controllers
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetString("Userid") == null)
+            {
+                return View("Login");
+            }
+
+            if (HttpContext.Session.GetString("Permission") != "Admin" &&
+                int.Parse(HttpContext.Session.GetString("Userid")) != id)
+            {
+                return View("AccessDenied");
+            }
             var users = await _context.Users
                 .Include(u => u.Permission)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -208,7 +218,6 @@ namespace FinalProject.Controllers
                 // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
                 [HttpPost]
                 [ValidateAntiForgeryToken]
-                [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Fullname,Username,Password,Email,Birthdate,PermissionsId")] Users users)
                 {
                     if (id != users.Id)
@@ -234,7 +243,7 @@ namespace FinalProject.Controllers
                                 throw;
                             }
                         }
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Index), "Products");
                     }
                     ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName", users.PermissionsId);
                     return View(users);
@@ -269,6 +278,10 @@ namespace FinalProject.Controllers
                     var users = await _context.Users.FindAsync(id);
                     _context.Users.Remove(users);
                     await _context.SaveChangesAsync();
+                    if (int.Parse(HttpContext.Session.GetString("Userid")) == id)
+                    {
+                        await Signout();
+                    }
                     return RedirectToAction(nameof(Index));
                 }
 
