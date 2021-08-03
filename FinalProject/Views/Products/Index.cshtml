@@ -11,18 +11,18 @@
 <div class="title"><h1>Products</h1></div>
 
 
-<div style="width: 78%; height: 80%; float: left;">
-    <div class="container">
+<div style="height: 80%; float: left;display:flex;justify-content:center;">
+    <div class="container" style="width:80%">
         <div class="row">
             @foreach (var item in Model.Products)
             {
-                <div class="col-sm-4 product-item-wrapper">
+                <div class="col-sm-12 col-md-6 col-lg-4 product-item-wrapper">
                     <div class="col-sm-12 product-item product-main">
                         <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
                         <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
                         <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
                         <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                        <a class="btn btn-outline-success mb-2" asp-action="Details" asp-route-id="@item.Id">More Details</a>
+                        <a class="btn btn-outline-success mb-2 btn-animated" asp-action="Details" asp-route-id="@item.Id">More Details</a>
                     </div>
                 </div>
             }
@@ -30,37 +30,8 @@
     </div>
 </div>
 
-<div style="margin-left: 80%; height: 100%; padding-top: 20px;">
-	<div class="row">
-		<header class="card-header">
-			<h6 class="title">Categories </h6>
-		</header>
-		<div class="filter-content">
-			<div class="card-body">
-                <form id="cat">
-                    <label class="form-check">
-                        <input id="0" name="0" class="form-check-input" type="radio" value="">
-                        <span class="form-check-label">
-                            All Categories
-                        </span>
-                    </label>
-                    @using (Html.BeginForm())
-                    {
-                        @foreach (var item in @ViewBag.Categories)
-                        {
-                            <label class="form-check">
-                                <input id="@item.Id" name="@item.Id" class="form-check-input" type="radio" value="">
-                                <span class="form-check-label">
-                                    @item.CategoryName
-                                </span>
-                            </label>
-                        }
-                    }
-                    </form>
-			</div> <!-- card-body.// -->
-		</div>
-	</div>
-	<div class="row">
+<div class="searchStyle">
+    <div class="row">
 		<header class="card-header">
 			<h6 class="title">Search </h6>
 		</header>
@@ -78,7 +49,7 @@
 					</p>
 					}
 				</div>
-			</div> 
+			</div>
 		</div>
 	</div>
 </div>

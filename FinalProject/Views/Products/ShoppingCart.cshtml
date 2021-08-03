@@ -43,35 +43,35 @@ else
                 </div>
             </div>
         }
-        <div style="margin-left: 80%; height: 100%; padding-top: 20px;">
-            <div class="row">
-                <header class="card-header">
-                    <h6 class="title">Search </h6>
-                </header>
-                <div class="filter-content">
-                    <div class="card-body">
-                        <div class="row"></div>
-                        <div class="col-2">
-                            @using (Html.BeginForm())
-                            {
-                                <p>
-                                    Name: @Html.TextBox("SearchString")
-                                    MaxPrice: @Html.TextBox("Price")
-                                    <input type="submit" value="Search" />
-
-                                </p>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
             <div>Order Price: <input id="totalAmount" value="@totalAmount" disabled class="mt-2" /></div>
             <input id="address" placeholder="Insert full address" class="mt-2" required />
             <button type="submit" class="bg-success text-white mt-2">Send order</button>
             <div id="cartEmpty" class="text-danger" hidden>Your cart is empty!</div>
         </form>
+    </div>
+    <div class="searchStyle">
+        <div class="row">
+            <header class="card-header">
+                <h6 class="title">Search </h6>
+            </header>
+            <div class="filter-content">
+                <div class="card-body">
+                    <div class="row"></div>
+                    <div class="col-2">
+                        @using (Html.BeginForm())
+                        {
+                            <p>
+                                Name: @Html.TextBox("SearchString")
+                                MaxPrice: @Html.TextBox("Price")
+                                <input type="submit" value="Search" />
+
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 
