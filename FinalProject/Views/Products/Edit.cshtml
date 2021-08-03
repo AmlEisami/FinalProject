@@ -5,33 +5,33 @@
 }
 
 <div class="text-center">
-    <h1 class="title">Edit</h1>
+    <h1 class="title">Edit @Model.ProductName</h1>
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
-        <div class="form-group row">
-            <label asp-for="ProductName" class="col-sm-2 col-form-label control-label"></label>
-            <input asp-for="ProductName" class="col-sm-9 col-form-label form-control" />
+        <div class="row mt-2 center">
+            <label asp-for="ProductName" class="col-sm-2"></label>
+            <input asp-for="ProductName" class="col-sm-4" />
             <span asp-validation-for="ProductName" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <label asp-for="Price" class="col-sm-2 col-form-label control-label"></label>
-            <input asp-for="Price" class="col-sm-9 col-form-label form-control" />
+        <div class="row mt-2 center">
+            <label asp-for="Price" class="col-sm-2"></label>
+            <input asp-for="Price" class="col-sm-4" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <label asp-for="Description" class="col-sm-2 col-form-label control-label"></label>
-            <input asp-for="Description" class="col-sm-9 col-form-label form-control" />
+        <div class="row mt-2 center">
+            <label asp-for="Description" class="col-sm-2"></label>
+            <input asp-for="Description" class="col-sm-4" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <label asp-for="Image" class="col-sm-2 col-form-label control-label"></label>
-            <input asp-for="Image" class="col-sm-9 col-form-label form-control" />
+        <div class="row mt-2 center">
+            <label asp-for="Image" class="col-sm-2"></label>
+            <input asp-for="Image" class="col-sm-4" />
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <label asp-for="Video" class="col-sm-2 col-form-label control-label"></label>
-            <input asp-for="Video" class="col-sm-9 col-form-label form-control" />
+        <div class="row mt-2 center">
+            <label asp-for="Video" class="col-sm-2"></label>
+            <input asp-for="Video" class="col-sm-4" />
             <span asp-validation-for="Video" class="text-danger"></span>
         </div>
         <div>

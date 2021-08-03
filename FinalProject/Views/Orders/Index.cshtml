@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Manage Orders</h1>
+<div class="title"><h1>Manage Orders</h1></div>
 
 @using (Html.BeginForm())
 {
@@ -21,11 +21,17 @@
 	</table>
 }
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Username)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
