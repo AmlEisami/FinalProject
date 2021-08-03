@@ -28,25 +28,6 @@ namespace FinalProject.Controllers
             return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Categories/Details/5
-        [Authorize(Roles = "Admin,Editor")]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categories = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (categories == null)
-            {
-                return NotFound();
-            }
-
-            return View(categories);
-        }
-
         // GET: Categories/Create
         [Authorize(Roles = "Admin,Editor")]
         public IActionResult Create()

@@ -5,8 +5,6 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit User</h1>
-
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -39,31 +37,24 @@
         <input asp-for="Birthdate" class="form-control" />
         <span asp-validation-for="Birthdate" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PermissionsId" class="control-label">Permissions</label>
-        <select asp-for="PermissionsId" class="form-control" asp-items="ViewBag.PermissionsId"></select>
-        <span asp-validation-for="PermissionsId" class="text-danger"></span>
-    </div>
+    @if (Context.Session.GetString("Permission") == "Admin")
+    {
+        <div class="form-group">
+            <label asp-for="PermissionsId" class="control-label">Permissions</label>
+            <select asp-for="PermissionsId" class="form-control" asp-items="ViewBag.PermissionsId"></select>
+            <span asp-validation-for="PermissionsId" class="text-danger"></span>
+        </div>
+    }
     <br />
     <div class="row d-flex justify-content-center">
-        <div class="form-group">
+        <div class="form-group center">
             <input type="submit" value="Save" class="btn btn-success" />
         </div>
-        </div>
+    </div>
 </form>
-
-@if (Context.Session.GetString("Permission") == "Admin")
-{
-    <div class="d-flex justify-content-center">
-        <a type="button" class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
-    </div>
-}
-@if (Context.Session.GetString("Permission") != "Admin")
-{
-    <div class="d-flex justify-content-center">
-        <a type="button" class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id">Back to List</a>
-    </div>
-}
+<div class="center">
+    <a type="button" class="btn btn-secondary mt-2" asp-action="Index" asp-controller="Products">Go To Home Page</a>
+</div>
 
 
 @section Scripts {
