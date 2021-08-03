@@ -25,7 +25,7 @@ namespace FinalProject.Controllers
         public async Task<IActionResult> Index()
         {
             var finalProjectContext = _context.Branch.Include(b => b.BranchManager);
-            ViewBag.permission = HttpContext.Session.GetString("Permissions");
+            ViewBag.permission = HttpContext.Session.GetString("Permission");
             return View(await finalProjectContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace FinalProject.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Fullname");
+            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Username");
             return View();
         }
 
