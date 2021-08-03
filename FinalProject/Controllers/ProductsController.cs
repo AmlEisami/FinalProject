@@ -28,17 +28,25 @@ namespace FinalProject.Controllers
         // GET: Products
         public async Task<ViewResult> Index(string searchString, string price, string categoryNames)
         {
+
+            var productsInCategory = (from aa in _context.Products
+                        from bb in aa.Category
+                        where bb.CategoryName == categoryNames
+                        select new
+                        {
+                            aa.Id,
+                            bb.MyProperty
+                        }).ToList();
+
             CombinedModel prodAndCat = new CombinedModel();
            
             ViewBag.Categories = await _context.Categories.ToListAsync();
             var currentCategory = await  _context.Categories.Where(c => c.CategoryName == categoryNames).ToListAsync();
             prodAndCat.CategoryNames = await _context.Categories.Select(c => c.CategoryName).ToListAsync();
-            prodAndCat.Products = _context.Products.Where(p => 
+            prodAndCat.Products = _context.Products.Where(p =>
                                                     (!String.IsNullOrEmpty(price) ? ((decimal)p.Price) <= (decimal)Convert.ToDouble(price) : true) &&
-                                                    (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true));
-
-
-
+                                                    (!String.IsNullOrEmpty(searchString) ? p.ProductName.Contains(searchString) : true) &&
+                                                    (!String.IsNullOrEmpty(categoryNames) ? productsInCategory[0].MyProperty.Contains(p) : true));
 
             return View(prodAndCat);
         }

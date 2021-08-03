@@ -65,14 +65,21 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @if (Context.Session.GetString("Permission") == "Admin" ||
-                                     Context.Session.GetString("Permission") == "Editor")
+                                    Context.Session.GetString("Permission") == "Editor")
                                     {
                                         <a class="dropdown-item" asp-controller="Products" asp-action="Create">Add Product</a>
                                     }
 
-                                    @if (Context.Session.GetString("Permission") == "Admin")
+                                    @if (Context.Session.GetString("Permission") == "Admin" ||
+                                    Context.Session.GetString("Permission") == "Editor")
                                     {
                                         <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Users</a>
+                                    }
+
+                                    @if (Context.Session.GetString("Permission") == "Admin" ||
+                                    Context.Session.GetString("Permission") == "Editor")
+                                    {
+                                        <a class="dropdown-item" asp-controller="Categories" asp-action="Index">Manage Categories</a>
                                     }
 
                                     <a class="dropdown-item" asp-controller="Users" asp-action=Details asp-route-id="@Context.Session.GetString("Userid")">User Details</a>

@@ -4,10 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-@{
-    var Categories = (object[])TempData["SaveMsg"];
-}
-
 <head>
     <link rel="stylesheet" href="~/css/products.css" />
 </head>
@@ -42,17 +38,26 @@
 		</header>
 		<div class="filter-content">
 			<div class="card-body">
-				<form id="cat">
-					@foreach (var item in @ViewBag.Categories)
-					{
-						<label class="form-check">
-							<input id="cat" name="cat" class="form-check-input" type="radio" value="">
-							<span class="form-check-label">
-								@item.CategoryName
-							</span>
-						</label>
-					}
-				</form>
+                <form id="cat">
+                    <label class="form-check">
+                        <input id="0" name="0" class="form-check-input" type="radio" value="">
+                        <span class="form-check-label">
+                            All Categories
+                        </span>
+                    </label>
+                    @using (Html.BeginForm())
+                    {
+                        @foreach (var item in @ViewBag.Categories)
+                        {
+                            <label class="form-check">
+                                <input id="@item.Id" name="@item.Id" class="form-check-input" type="radio" value="">
+                                <span class="form-check-label">
+                                    @item.CategoryName
+                                </span>
+                            </label>
+                        }
+                    }
+                    </form>
 			</div> <!-- card-body.// -->
 		</div>
 	</div>
@@ -69,9 +74,8 @@
 					<p>
 						Name: @Html.TextBox("SearchString")
 						MaxPrice: @Html.TextBox("Price")
-						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category ")
+						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category")
 						<input type="submit" value="Search" />
-						
 					</p>
 					}
 				</div>
