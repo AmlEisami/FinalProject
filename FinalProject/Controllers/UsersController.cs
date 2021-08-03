@@ -165,11 +165,13 @@ namespace FinalProject.Controllers
         }
 
         // GET: Users
-        [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<ViewResult> Index(string username, string fullname, string email)
         {
-            return View(await _context.Users.ToListAsync());
+            var users = await _context.Users.Where(u => (!String.IsNullOrEmpty(username) ? u.Username.ToLower().Contains(username.ToLower()) : true) &&
+                                                  (!String.IsNullOrEmpty(fullname) ? u.Fullname.ToLower().Contains(fullname.ToLower()) : true) &&
+                                                  (!String.IsNullOrEmpty(email) ? u.Email.ToLower().Contains(email.ToLower()) : true)).ToListAsync();
+            return View( users);
         }
 
 
