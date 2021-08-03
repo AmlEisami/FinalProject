@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Web;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Dynamic;
 using Newtonsoft.Json.Linq;
+using Facebook;
 
 namespace FinalProject.Controllers
 {
@@ -48,7 +48,7 @@ namespace FinalProject.Controllers
                                                  (!String.IsNullOrEmpty(searchString) ? p.ProductName.ToLower().Contains(searchString.ToLower()) : true) &&
                                                  (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true))
                                                  .GroupBy(p => p.Id).Select(p => p.First());
-
+                                                 
             return View(prodAndCat);
         }
 
@@ -170,6 +170,16 @@ namespace FinalProject.Controllers
 
                 _context.Add(products);
                 await _context.SaveChangesAsync();
+                var pageId = "139699228237162";
+
+                dynamic messagePost = new ExpandoObject();
+                messagePost.access_token = "EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD";
+                messagePost.message = "A new product has been published! Come check out \"" + products.ProductName + "\"";
+                messagePost.description = "Yay";
+
+                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD");
+                    var result = app.Post("/" + pageId + "/feed", messagePost);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(products);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
 {
@@ -21,12 +22,14 @@ namespace FinalProject.Controllers
 
         // GET: Categories
         [HttpGet]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
         // GET: Categories/Details/5
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +71,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +88,7 @@ namespace FinalProject.Controllers
         }
 
         // POST: Categories/Edit/5
+        [Authorize(Roles = "Admin,Editor")]
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,6 +124,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +143,7 @@ namespace FinalProject.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
