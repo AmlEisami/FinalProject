@@ -24,9 +24,11 @@ namespace FinalProject.Controllers
 
         // GET: Orders
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Address, string price)
         {
-            var finalProjectContext = _context.Orders.Include(o => o.User);
+            var finalProjectContext = _context.Orders.Include(o => o.User)
+                .Where( o => (!String.IsNullOrEmpty(price) ? ((decimal)o.OrderPrice) <= (decimal)Convert.ToDouble(price) : true) &&
+                             (!String.IsNullOrEmpty(Address) ? o.Address.ToLower().Contains(Address.ToLower()) : true));
             return View(await finalProjectContext.ToListAsync());
         }
 
