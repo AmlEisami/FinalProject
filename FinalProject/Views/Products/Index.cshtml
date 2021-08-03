@@ -11,45 +11,48 @@
 <div class="title"><h1>Products</h1></div>
 
 
-<div style="height: 80%; float: left;display:flex;justify-content:center;">
-    <div class="container" style="width:80%">
+<div style="">
+    <div class="container">
         <div class="row">
-            @foreach (var item in Model.Products)
-            {
-                <div class="col-sm-12 col-md-6 col-lg-4 product-item-wrapper">
-                    <div class="col-sm-12 product-item product-main">
-                        <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
-                        <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
-                        <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
-                        <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                        <a class="btn btn-outline-success mb-2 btn-animated" asp-action="Details" asp-route-id="@item.Id">More Details</a>
+            <div class="col-sm-10">
+                <div class="row">
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="col-sm-12 col-md-6 col-lg-4 product-item-wrapper">
+                            <div class="col-sm-12 product-item product-main">
+                                <h3>@Html.DisplayFor(modelItem => item.ProductName)</h3>
+                                <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
+                                <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
+                                <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
+                                <a class="btn btn-outline-success mb-2 btn-animated" asp-action="Details" asp-route-id="@item.Id">More Details</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <header class="card-header">
+                        <h6 class="title">Search </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                            <div class="row"></div>
+                            <div class="col-2">
+                                @using (Html.BeginForm())
+                                {
+                                    <p>
+                                        Name: @Html.TextBox("SearchString")
+                                        MaxPrice: @Html.TextBox("Price")
+                                        Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category")
+                                        <input type="submit" value="Search" />
+                                    </p>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
-</div>
-
-<div class="searchStyle">
-    <div class="row">
-		<header class="card-header">
-			<h6 class="title">Search </h6>
-		</header>
-		<div class="filter-content">
-			<div class="card-body">
-				<div class="row"></div>
-				<div class="col-2">
-					@using (Html.BeginForm())
-					{
-					<p>
-						Name: @Html.TextBox("SearchString")
-						MaxPrice: @Html.TextBox("Price")
-						Categories: @Html.DropDownListFor(m => m.CategoryNames, new SelectList(Model.CategoryNames, "Category"), " Category")
-						<input type="submit" value="Search" />
-					</p>
-					}
-				</div>
-			</div>
-		</div>
-	</div>
 </div>

@@ -42,13 +42,6 @@ namespace FinalProject.Controllers
             return View(await myOrders.ToListAsync());
         }
 
-        // GET: Orders/Create
-        public IActionResult Create()
-        {
-            ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
-
         public async Task<bool> CreateOrder(string address)
         {
             var orderPrice = 0.0;
@@ -99,23 +92,6 @@ namespace FinalProject.Controllers
             HttpContext.Session.Remove("cart");
             return true;
         }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*        [HttpPost]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> Create([Bind("Id,UsersId,Address,OrderPrice,OrderDate")] Orders orders)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        _context.Add(orders);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
-                    }
-                    ViewData["UsersId"] = new SelectList(_context.Users, "Id", "Id", orders.UsersId);
-                    return View(orders);
-                }*/
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
