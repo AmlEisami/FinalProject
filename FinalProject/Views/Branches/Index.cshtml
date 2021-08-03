@@ -47,11 +47,13 @@
 							</tr>
 						}
 
-						<a asp-action="Create">
-							<button id="fixedbutton" class="btn btn-secondary">
-								+
-							</button>
-						</a>
+						@if( ViewBag.permissions == 1) {
+							<a asp-action="Create">
+								<button id="fixedbutton" class="btn btn-secondary">
+									+
+								</button>
+							</a>
+						}
 					</tbody>
 				</table>
 			</th>
