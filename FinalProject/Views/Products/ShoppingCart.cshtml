@@ -19,55 +19,61 @@ else
     var totalAmount = 0.0;
     <div class="title"><h1>Shopping Cart</h1></div>
     <div class="container">
-        @foreach (var item in Model)
-        {
-            totalAmount = totalAmount + (double.Parse(@ViewBag.amount.Items[item.Id.ToString()].ToString()) * item.Price);
-            <div class="row justify-content-sm-center">
-                <div class="col-sm-6 product-item-wrapper">
-                    <div class="col-sm-12 product-item" style="display:flex; flex-direction:row; justify-content:space-around">
-                        <div class="columnAndCenter">
-                            <strong>@Html.DisplayFor(modelItem => item.ProductName)</strong>
-                            <img alt="Image" height="100" width="100" src="@Html.DisplayFor(modelItem => item.Image)" />
-                        </div>
-                        <div class="columnAndCenter">
-                            <span>@Html.DisplayFor(modelItem => item.Description)</span>
-                            <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                            <div>
-                                <span>amount:</span>
-                                <input type="number" min="0" value="@ViewBag.amount.Items[item.Id.ToString()]" id="cartQuantity_@item.Id" onchange="changeQuantity(@item.Id)" style="width:30%" />
-                            </div>
-                            <input class="cartItemId" type="hidden" value="@item.Id" />
-                        </div>
-                        <div class="columnAndCenter"><button class="btn btn-danger removeProductButton" onclick="removeItemFromCart(@item.Id)"><i class="bi bi-trash"></i>Remove</button></div>
-                    </div>
-                </div>
-            </div>
-        }
-        <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
-            <div>Order Price: <input id="totalAmount" value="@totalAmount" disabled class="mt-2" /></div>
-            <input id="address" placeholder="Insert full address" class="mt-2" required />
-            <button type="submit" class="bg-success text-white mt-2">Send order</button>
-            <div id="cartEmpty" class="text-danger" hidden>Your cart is empty!</div>
-        </form>
-    </div>
-    <div class="searchStyle">
         <div class="row">
-            <header class="card-header">
-                <h6 class="title">Search </h6>
-            </header>
-            <div class="filter-content">
-                <div class="card-body">
-                    <div class="row"></div>
-                    <div class="col-2">
-                        @using (Html.BeginForm())
-                        {
-                            <p>
-                                Name: @Html.TextBox("SearchString")
-                                MaxPrice: @Html.TextBox("Price")
-                                <input type="submit" value="Search" />
+            <div class="col-sm-10">
 
-                            </p>
-                        }
+                @foreach (var item in Model)
+                {
+                    totalAmount = totalAmount + (double.Parse(@ViewBag.amount.Items[item.Id.ToString()].ToString()) * item.Price);
+                    <div class="row justify-content-sm-center">
+                        <div class="col-sm-6 product-item-wrapper">
+                            <div class="col-sm-12 product-item" style="display:flex; flex-direction:row; justify-content:space-around">
+                                <div class="columnAndCenter">
+                                    <strong>@Html.DisplayFor(modelItem => item.ProductName)</strong>
+                                    <img alt="Image" height="100" width="100" src="@Html.DisplayFor(modelItem => item.Image)" />
+                                </div>
+                                <div class="columnAndCenter">
+                                    <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                                    <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
+                                    <div>
+                                        <span>amount:</span>
+                                        <input type="number" min="0" value="@ViewBag.amount.Items[item.Id.ToString()]" id="cartQuantity_@item.Id" onchange="changeQuantity(@item.Id)" style="width:30%" />
+                                    </div>
+                                    <input class="cartItemId" type="hidden" value="@item.Id" />
+                                </div>
+                                <div class="columnAndCenter"><button class="btn btn-danger removeProductButton" onclick="removeItemFromCart(@item.Id)"><i class="bi bi-trash"></i>Remove</button></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <form id="createOrderButtonForm" class="d-flex align-items-center mt-4 flex-column">
+                    <div>Order Price: <input id="totalAmount" value="@totalAmount" disabled class="mt-2" /></div>
+                    <input id="address" placeholder="Insert full address" class="mt-2" required />
+                    <button type="submit" class="bg-success text-white mt-2">Send order</button>
+                    <div id="cartEmpty" class="text-danger" hidden>Your cart is empty!</div>
+                </form>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="row">
+                    <header class="card-header">
+                        <h6 class="title">Search </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                            <div class="row"></div>
+                            <div class="col-2">
+                                @using (Html.BeginForm())
+                                {
+                                    <p>
+                                        Name: @Html.TextBox("SearchString")
+                                        MaxPrice: @Html.TextBox("Price")
+                                        <input type="submit" value="Search" />
+
+                                    </p>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

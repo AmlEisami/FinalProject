@@ -79,12 +79,3 @@ body {
 h1 {
     font-family: Anton;
 }
-
-.searchStyle {
-    right: 30px;
-    height: 100%;
-    padding-top: 20px;
-    position: fixed;
-    width: 300px;
-    top:500px;
-}
