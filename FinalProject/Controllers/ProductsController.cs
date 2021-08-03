@@ -173,11 +173,11 @@ namespace FinalProject.Controllers
                 var pageId = "139699228237162";
 
                 dynamic messagePost = new ExpandoObject();
-                messagePost.access_token = "EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD";
+                messagePost.access_token = "EAAYh1wlHGjkBALjm1TxscuK9NdbzcCkGpu8BqCArbPx9UcxxQHiDQeGFvdoTltfI6XXFVdUUImgSFqQkK3WzqHmOvj3on6a8OA8Nd1MjpR5BUqxeIAV8SNNmxobrFYXQagPfAQq2ttqdp7kZCDK0lKQOh5Pj4Fyt0XfyAb8yVUbE7NzMa3gYvi0GlZCUgZD";
                 messagePost.message = "A new product has been published! Come check out \"" + products.ProductName + "\"";
                 messagePost.description = "Yay";
 
-                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBAKmaWH6NR1T13G6CEzCQAc8zlm3XweblGM51TVLikDV75uF8sVJqNs3b9q2SPqSoGHdyZBKmGT7kPzjzQrZB8hixQ0yTF0rDW91V2hQgmv9deXcmCTAU4SVHhp6XuYFNE8s7iI2afs6jgHVce1OfU4RZB6YlZA808YU0gbdj2KmKte1Kw3MZD");
+                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBACZCSKvXAqvGs2PeOaQ70N2zEdGkZCOmdXRZCtHUeZAa55d6fnFcLX4SbuZAtOBreZBXEqL5N9yu4otqLfi9KTmko4VGpnwCZAn65PVZBesh9InZCJfoQZA5WSk1ZC9mKQOy2NYQy8clIATTJe0XEwm71lv5HX9sQQth3HNccOfMyjY");
                     var result = app.Post("/" + pageId + "/feed", messagePost);
 
                 return RedirectToAction(nameof(Index));
