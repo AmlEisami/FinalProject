@@ -35,14 +35,6 @@
             </div>
             <div class="row justify-content-md-center mt-4">
                 <div class="col col-sm-2 text-sm-left">
-                    <strong style="width:100px;">@Html.DisplayNameFor(model => model.Stock):</strong>
-                </div>
-                <div class="col col-sm-2 text-sm-left">
-                    @Html.DisplayFor(model => model.Stock)
-                </div>
-            </div>
-            <div class="row justify-content-md-center mt-4">
-                <div class="col col-sm-2 text-sm-left">
                     <strong style="width:100px;">@Html.DisplayFor(model => model.Description):</strong>
                 </div>
                 <div class="col col-sm-2 text-sm-left">
@@ -56,14 +48,21 @@
                 <input type="number" min="0" value="0" id="quantity" />
                 <button class="add-to-cart">Add to cart</button>
             </div>
+            <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 11">
+                <div id="liveToast" class="toast text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            This product was successfully added to your cart!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
         }
         else
         {
-            /*<div class="mt-4">If you want to add this product to your cart, <a asp-area="" asp-controller="Users" asp-action="Login">Login</a> first</div>*/
-            <div class="mt-4">
-                <input type="number" min="0" value="0" id="quantity" />
-                <button class="add-to-cart" onclick="AddToCart(@Model.Id)">Add to cart</button>
-            </div>
+            <div class="mt-4">If you want to add this product to your cart, <a asp-area="" asp-controller="Users" asp-action="Login">Login</a> first</div>
         }
         <div class="mt-4">
             <a asp-action="Index" class="btn btn-primary">Go Back</a>

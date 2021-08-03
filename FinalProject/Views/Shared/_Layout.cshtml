@@ -51,14 +51,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="notification text-dark" asp-controller="Products" asp-action="ShoppingCart">
-                                <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
-                                <span>cart</span>
-                            </a>
-                        </li>
                         @if (Context.Session.GetString("Permission") != null)
                         {
+                            <li class="nav-item">
+                                <a class="notification text-dark" asp-controller="Products" asp-action="ShoppingCart">
+                                    <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
+                                    <span>cart</span>
+                                </a>
+                            </li>
                             <li class="nav-item ms-auto dropdown show">
                                 <a class="nav-link text-dark dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Hello, @Context.Session.GetString("Username")

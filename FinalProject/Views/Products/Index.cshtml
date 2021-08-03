@@ -22,7 +22,6 @@
                         <img class="mx-auto" alt="Image" height="200" width="200" src="@Html.DisplayFor(modelItem => item.Image)" />
                         <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
                         <span>Price: @Html.DisplayFor(modelItem => item.Price)$</span>
-                        <span>Stock: @Html.DisplayFor(modelItem => item.Stock)</span>
                         <a class="btn btn-outline-success mb-2" asp-action="Details" asp-route-id="@item.Id">More Details</a>
                     </div>
                 </div>

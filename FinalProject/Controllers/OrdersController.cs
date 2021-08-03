@@ -9,6 +9,7 @@ using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
 
 namespace FinalProject.Controllers
 {
@@ -48,12 +49,55 @@ namespace FinalProject.Controllers
             return View();
         }
 
-        public void CreateOrder(string address)
+        public async Task<bool> CreateOrder(string address)
         {
-            if (address == null)
+            var orderPrice = 0.0;
+            Orders order = new();
+            order.UsersId = int.Parse(HttpContext.Session.GetString("Userid"));
+            order.Address = address;
+            order.OrderDate = DateTime.Now;
+
+            JObject dynamicCart = JObject.Parse(HttpContext.Session.GetString("cart"));
+            var numOfOD = 0;
+            foreach (var property in dynamicCart)
             {
-                ViewData["Error2"] = "Sorry, username and/or password are incorrect!";
+                if (int.Parse(property.Value.ToString()) > 0)
+                {
+                    numOfOD++;
+                    var product = from p in _context.Products
+                                  where p.Id == int.Parse(property.Key)
+                                  select p;
+
+                    orderPrice += product.First().Price * int.Parse(property.Value.ToString());
+                }
             }
+            if (numOfOD > 0) 
+            {
+                order.OrderPrice = orderPrice;
+                _context.Add(order);
+                await _context.SaveChangesAsync();
+                var orderDetailsRange = new OrderDetails[numOfOD];
+                var id = 0;
+                foreach (var property in dynamicCart)
+                {
+                    if (int.Parse(property.Value.ToString()) > 0)
+                    {
+
+                        orderDetailsRange[id] = new();
+                        orderDetailsRange[id].ProductsId = int.Parse(property.Key);
+                        orderDetailsRange[id].Amount = int.Parse(property.Value.ToString());
+                        orderDetailsRange[id].OrdersId = order.Id;
+                        id++;
+                    }
+                }
+                _context.AddRange(orderDetailsRange);
+                await _context.SaveChangesAsync();
+            } else
+            {
+                return false;
+            }
+            HttpContext.Session.Remove("cart");
+            return true;
         }
 
         // POST: Orders/Create
