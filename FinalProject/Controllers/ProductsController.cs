@@ -48,7 +48,7 @@ namespace FinalProject.Controllers
                                                  (!String.IsNullOrEmpty(searchString) ? p.ProductName.ToLower().Contains(searchString.ToLower()) : true) &&
                                                  (!String.IsNullOrEmpty(categoryNames) ? p.Category.Exists(c => c.CategoryName == categoryNames) : true))
                                                  .GroupBy(p => p.Id).Select(p => p.First());
-
+                                                 
             return View(prodAndCat);
         }
 

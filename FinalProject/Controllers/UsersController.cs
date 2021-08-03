@@ -157,6 +157,7 @@ namespace FinalProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -171,16 +172,18 @@ namespace FinalProject.Controllers
             return View(users);
         }
 
-        [HttpGet]
         // GET: Users
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
-        } 
+        }
 
-        
-                // GET: Users/Edit/5
-                public async Task<IActionResult> Edit(int? id)
+
+        // GET: Users/Edit/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int? id)
                 {
                     if (id == null)
                     {
@@ -200,7 +203,8 @@ namespace FinalProject.Controllers
                 // To protect from overposting attacks, enable the specific properties you want to bind to.
                 // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
                 [HttpPost]
-                [ValidateAntiForgeryToken]        
+                [ValidateAntiForgeryToken]
+                [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Fullname,Username,Password,Email,Birthdate,PermissionsId")] Users users)
                 {
                     if (id != users.Id)
@@ -231,9 +235,10 @@ namespace FinalProject.Controllers
                     ViewData["PermissionsId"] = new SelectList(_context.Permissions, "Id", "PermissionName", users.PermissionsId);
                     return View(users);
                 }
-        
-                // GET: Users/Delete/5
-                public async Task<IActionResult> Delete(int? id)
+
+        // GET: Users/Delete/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
                 {
                     if (id == null)
                     {
@@ -250,8 +255,9 @@ namespace FinalProject.Controllers
 
                     return View(users);
                 }
-        
-                // POST: Users/Delete/5
+
+        // POST: Users/Delete/5
+                [Authorize(Roles = "Admin")]
                 [HttpPost, ActionName("Delete")]
                 [ValidateAntiForgeryToken]
                 public async Task<IActionResult> DeleteConfirmed(int id)
