@@ -12,14 +12,10 @@
         <div class="row justify-content-sm-center">
             <div class="col-sm-6 product-item-wrapper">
                 <div class="col-sm-12 product-item">
-                    <section>
-                        <h3>Order ID: @Html.DisplayFor(modelItem => item.Id)</h3>
-                        <h6>Address: @Html.DisplayFor(modelItem => item.Address)</h6>
-                        <div class="columnAndCenter">
-                            <span>Order amount: @Html.DisplayFor(modelItem => item.OrderPrice)$</span>
-                            <span>Order Date: @Html.DisplayFor(modelItem => item.OrderDate)</span>
-                        </div>
-                    </section>
+                    <h3>Order ID: @Html.DisplayFor(modelItem => item.Id)</h3>
+                    <h6>Address: @Html.DisplayFor(modelItem => item.Address)</h6>
+                    <span>Order amount: @Html.DisplayFor(modelItem => item.OrderPrice)$</span>
+                    <span>Order Date: @Html.DisplayFor(modelItem => item.OrderDate)</span>
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
