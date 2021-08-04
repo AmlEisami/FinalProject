@@ -4,6 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
+@section Scripts {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOk0dHNgE4FgcKxVXPglSnPHQDfkQ7o6E&callback=initMap&libraries=places" async defer></script>
+    <script src="~/js/openMap.js"></script>
+}
+
 <div class="title"><h1>My Orders</h1></div>
 
 <div class="container">
@@ -19,13 +25,12 @@
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                                <button 
-                                   class="accordion-button"
-                                   type="button"
-                                   data-bs-toggle="collapse"
-                                   data-bs-target="#collapse_@item.Id"
-                                   aria-expanded="true"
-                                   aria-controls="collapseOne">
+                                <button class="accordion-button"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse_@item.Id"
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne">
                                     View order
                                 </button>
                             </h2>
@@ -33,21 +38,21 @@
                                 <div class="accordion-body">
                                     @if (item.OrderDetails != null)
                                     {
-                                    <div class="row">
-                                        @foreach (var orderItem in item.OrderDetails)
-                                        {
-                                            <div class="col-sm-4">
-                                                <div class="col-sm-12" style="display:flex;flex-direction:column">
-                                                    <img class="mx-auto" alt="Image" src=@orderItem.Product.Image height="100" width="100" />
-                                                    <span>@orderItem.Product.ProductName</span>
-                                                    <span>@orderItem.Product.Description</span>
-                                                    <hr />
-                                                    <span>@orderItem.Amount Units</span>
-                                                    <span>@orderItem.Product.Price$</span>
+                                        <div class="row">
+                                            @foreach (var orderItem in item.OrderDetails)
+                                            {
+                                                <div class="col-sm-4">
+                                                    <div class="col-sm-12" style="display:flex;flex-direction:column">
+                                                        <img class="mx-auto" alt="Image" src=@orderItem.Product.Image height="100" width="100" />
+                                                        <span>@orderItem.Product.ProductName</span>
+                                                        <span>@orderItem.Product.Description</span>
+                                                        <hr />
+                                                        <span>@orderItem.Amount Units</span>
+                                                        <span>@orderItem.Product.Price$</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }
-                                    </div>
+                                            }
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -57,4 +62,10 @@
             </div>
         </div>
     }
+</div>
+<div>
+    @foreach(var property in @ViewBag.wether["rates"])
+            {
+                
+            }
 </div>

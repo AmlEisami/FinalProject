@@ -9,11 +9,13 @@ using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 
 namespace FinalProject.Controllers
 {
     public class BranchesController : Controller
     {
+        static HttpClient client = new HttpClient();
         private readonly FinalProjectContext _context;
 
         public BranchesController(FinalProjectContext context)
