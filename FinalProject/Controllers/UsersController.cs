@@ -296,6 +296,7 @@ namespace FinalProject.Controllers
             return Json(a);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Measures()
         {
             return View();
