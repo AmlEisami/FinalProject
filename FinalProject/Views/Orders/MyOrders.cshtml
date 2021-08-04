@@ -64,8 +64,25 @@
     }
 </div>
 <div>
-    @foreach(var property in @ViewBag.wether["rates"])
-            {
-                
-            }
+    <table style="width:50%">
+        <tr>
+            <th>CurrencyName</th>
+            <th>CurrencyValue</th>
+        </tr>
+        <tr>
+            <td>EURO</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>USD</td>
+            <td>@ViewBag.wether["rates"]["USD"]</td>
+        </tr>
+        <tr>
+            <td>CAD</td>
+            <td>@ViewBag.wether["rates"]["CAD"]</td>
+        </tr>
+        <tr>
+            <td>JPY</td>
+            <td>@ViewBag.wether["rates"]["JPY"]</td>
+        </tr>
 </div>
