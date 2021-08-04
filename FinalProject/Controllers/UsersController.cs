@@ -272,7 +272,23 @@ namespace FinalProject.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                private bool UsersExists(int id)
+        [HttpGet]
+        public async Task<JsonResult> getUserStatistics()
+        {
+
+            var a = await (from u in _context.Users
+                           orderby u.PermissionsId
+                           group u by u.PermissionsId into newGroup
+                           select new { permission = newGroup.Key, count = newGroup.Count()}).ToListAsync();
+            return Json(a);
+        }
+
+        public IActionResult Measures()
+        {
+            return View();
+        }
+
+        private bool UsersExists(int id)
                 {
                     return _context.Users.Any(e => e.Id == id);
                 }

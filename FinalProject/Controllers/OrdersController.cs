@@ -178,11 +178,7 @@ namespace FinalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Measures()
-        {
-            return View();
-        }
-
+        
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);
