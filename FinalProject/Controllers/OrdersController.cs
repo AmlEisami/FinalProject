@@ -26,9 +26,19 @@ namespace FinalProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string Address, string price)
         {
-            var finalProjectContext = _context.Orders.Include(o => o.User)
-                .Where( o => (!String.IsNullOrEmpty(price) ? ((decimal)o.OrderPrice) <= (decimal)Convert.ToDouble(price) : true) &&
-                             (!String.IsNullOrEmpty(Address) ? o.Address.ToLower().Contains(Address.ToLower()) : true));
+
+            var finalProjectContext = from o in _context.Orders
+                                      join u in _context.Users
+                                      on o.UsersId equals u.Id
+                                      select new Orders
+                                      {
+                                          Id = o.Id,
+                                          UsersId = o.UsersId,
+                                          User = u,
+                                          Address = o.Address,
+                                          OrderPrice = o.OrderPrice,
+                                          OrderDate = o.OrderDate,
+                                      };
             return View(await finalProjectContext.ToListAsync());
         }
 
@@ -39,7 +49,6 @@ namespace FinalProject.Controllers
             var userId = Convert.ToInt32(HttpContext.Session.GetString("Userid"));
 
             var myOrders = _context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Where(m => m.UsersId == userId);
-
 
             return View(await myOrders.ToListAsync());
         }

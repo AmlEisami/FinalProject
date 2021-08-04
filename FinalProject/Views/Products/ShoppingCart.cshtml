@@ -54,7 +54,7 @@ else
                 </form>
             </div>
 
-            <div class="col-sm-2">
+            <aside class="col-sm-2">
                 <div class="row">
                     <header class="card-header">
                         <h6 class="title">Search </h6>
@@ -67,7 +67,7 @@ else
                                 {
                                     <p>
                                         Name: @Html.TextBox("SearchString")
-                                        MaxPrice: @Html.TextBox("Price")
+                                        MaxPrice: <input type="number" name="Price" />
                                         <input type="submit" value="Search" />
 
                                     </p>
@@ -76,7 +76,7 @@ else
                         </div>
                     </div>
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
 }

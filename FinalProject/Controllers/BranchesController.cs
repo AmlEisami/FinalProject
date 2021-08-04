@@ -24,7 +24,17 @@ namespace FinalProject.Controllers
         // GET: Branches
         public async Task<IActionResult> Index()
         {
-            var finalProjectContext = _context.Branch.Include(b => b.BranchManager);
+            var finalProjectContext = from b in _context.Branch
+                                      join u in _context.Users
+                                      on b.UsersId equals u.Id
+                                      select new Branches
+                                      {
+                                          Id = b.Id,
+                                          BranchName = b.BranchName,
+                                          Location = b.Location,
+                                          UsersId = b.UsersId,
+                                          BranchManager = u
+                                      };
             ViewBag.permission = HttpContext.Session.GetString("Permission");
             return View(await finalProjectContext.ToListAsync());
         }
