@@ -10,11 +10,13 @@ using FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace FinalProject.Controllers
 {
     public class OrdersController : Controller
     {
+        static HttpClient client = new HttpClient();
         private readonly FinalProjectContext _context;
 
         public OrdersController(FinalProjectContext context)
@@ -46,6 +48,19 @@ namespace FinalProject.Controllers
         [Authorize(Roles = "Admin, Editor, Client")]
         public async Task<IActionResult> MyOrders()
         {
+                var path = "http://data.fixer.io/api/latest?access_key=758b556a8a2bc33fafde24780c31dbea&symbols=USD,CAD,JPY";
+                var wether = "";
+                HttpResponseMessage response = await client.GetAsync(path);
+                if (response.IsSuccessStatusCode)
+                {
+                    wether = response.Content.ReadAsStringAsync().Result;
+                    var ssss = Newtonsoft.Json.JsonConvert.DeserializeObject(wether);
+                    ViewBag.wether = ssss;
+                var a = "";
+            }
+                
+            
+
             var userId = Convert.ToInt32(HttpContext.Session.GetString("Userid"));
 
             var myOrders = _context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Where(m => m.UsersId == userId);
