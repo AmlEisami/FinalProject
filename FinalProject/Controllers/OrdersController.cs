@@ -127,6 +127,7 @@ namespace FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UsersId,Address,OrderPrice,OrderDate")] Orders orders)
         {
             if (id != orders.Id)

@@ -35,7 +35,7 @@
         </div>
         <div class="row mt-2 center">
             <label asp-for="Category" class="col-sm-2"></label>
-            <select asp-for="Category" class="col-sm-4" asp-items="ViewBag.categories"></select>
+            <select asp-for="Category" class="col-sm-4" asp-items="ViewBag.categories" required></select>
             <span asp-validation-for="Category" class="text-danger"></span>
         </div>
         <div>
