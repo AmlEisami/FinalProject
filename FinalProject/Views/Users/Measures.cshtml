@@ -1,0 +1,25 @@
+﻿@{
+
+	ViewData["Title"] = "Measures";
+}
+
+
+<link rel="stylesheet" href="~/css/measures.css">
+
+<center><h1 class="mainHeader">Measures on System</h1></center>
+
+<h4>Amount of Products Per Category</h4>
+<center id="CategoryStats"></center>
+<br />
+<br />
+<h4>Types of Users</h4>
+<div class="chartsContainer">
+	<div id="UsersStats"></div>
+</div>
+
+
+
+@section Scripts {
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="~/js/measures.js"></script>
+}

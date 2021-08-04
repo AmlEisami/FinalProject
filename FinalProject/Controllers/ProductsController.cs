@@ -52,6 +52,30 @@ namespace FinalProject.Controllers
             return View(prodAndCat);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> getCategoryStatistics()
+        {
+            CombinedModel prodAndCat = new CombinedModel();
+            prodAndCat.Products  = await (from product in _context.Products
+                           from categories in product.Category
+                           select new Products
+                           {
+                               Id = product.Id,
+                               Image = product.Image,
+                               Price = product.Price,
+                               ProductName = product.ProductName,
+                               Video = product.Video,
+                               Description = product.Description,
+                               Category = product.Category
+                           }).ToListAsync();
+
+            prodAndCat.CategoryNames = await _context.Categories.Select(c => c.CategoryName).ToListAsync();
+            
+
+            return Json(prodAndCat);
+        }
+
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -149,7 +173,7 @@ namespace FinalProject.Controllers
         }
 
        // GET: Products/Create
-       [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin,Editor")]
         public IActionResult Create()
         {
             ViewData["categories"] = new SelectList(_context.Categories, nameof(Categories.Id), nameof(Categories.CategoryName));
@@ -173,11 +197,11 @@ namespace FinalProject.Controllers
                 var pageId = "139699228237162";
 
                 dynamic messagePost = new ExpandoObject();
-                messagePost.access_token = "EAAYh1wlHGjkBALjm1TxscuK9NdbzcCkGpu8BqCArbPx9UcxxQHiDQeGFvdoTltfI6XXFVdUUImgSFqQkK3WzqHmOvj3on6a8OA8Nd1MjpR5BUqxeIAV8SNNmxobrFYXQagPfAQq2ttqdp7kZCDK0lKQOh5Pj4Fyt0XfyAb8yVUbE7NzMa3gYvi0GlZCUgZD";
+                messagePost.access_token = "EAAYh1wlHGjkBANqWjSjtigmZB1mZBwAn7A2XAGRvglTplfuE7xWIPsnCWz485btZAfR4wKg5FVTK8mqQkYWKEXCi9WJcTxGjZAEfXy6r73LdidXPwJCZCq2oZBOcT4uEbJvUx8W7slgrJYHGEtnlSPBjXn8SVEWT6hWQfx9cs6IeYFgsPmdSVo0ZC5uamOrQAwZD";
                 messagePost.message = "A new product has been published! Come check out \"" + products.ProductName + "\"";
                 messagePost.description = "Yay";
 
-                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBACZCSKvXAqvGs2PeOaQ70N2zEdGkZCOmdXRZCtHUeZAa55d6fnFcLX4SbuZAtOBreZBXEqL5N9yu4otqLfi9KTmko4VGpnwCZAn65PVZBesh9InZCJfoQZA5WSk1ZC9mKQOy2NYQy8clIATTJe0XEwm71lv5HX9sQQth3HNccOfMyjY");
+                FacebookClient app = new FacebookClient("EAAYh1wlHGjkBANTXxb4ZBnqj2ZApXFDwdAtg4jLIelCamlqTj2I0Nv5in78BfmBFw5AW0HqCEEdZCRYzWOggMZCofBn79vtZA0KvkIx1yMV7lwfvMKisSj1j8pATs23qA3JXMgSW3MyD8gg0upt5vZAmc0GA5rphd8ZAd02NcuqaZAq1IiKPNjVZA");
                     var result = app.Post("/" + pageId + "/feed", messagePost);
 
                 return RedirectToAction(nameof(Index));
@@ -186,7 +210,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Products/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -238,7 +262,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Products/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

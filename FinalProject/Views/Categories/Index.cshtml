@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Manage Categories</h1>
+<div class="title"><h1>Manage Categories</h1></div>
 
 <table class="table table-striped">
     <thead>
@@ -16,20 +16,20 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td class="d-flex justify-content-end">
-                <a type="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a type="button" class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td class="d-flex justify-content-end">
+                    <a type="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;
+                    <a type="button" class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 <br />
-<p>
+<p class="center">
     <a type="button" class="btn btn-primary" asp-action="Create">Create New</a>
 </p>

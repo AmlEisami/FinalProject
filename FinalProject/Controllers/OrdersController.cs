@@ -24,9 +24,11 @@ namespace FinalProject.Controllers
 
         // GET: Orders
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Address, string price)
         {
-            var finalProjectContext = _context.Orders.Include(o => o.User);
+            var finalProjectContext = _context.Orders.Include(o => o.User)
+                .Where( o => (!String.IsNullOrEmpty(price) ? ((decimal)o.OrderPrice) <= (decimal)Convert.ToDouble(price) : true) &&
+                             (!String.IsNullOrEmpty(Address) ? o.Address.ToLower().Contains(Address.ToLower()) : true));
             return View(await finalProjectContext.ToListAsync());
         }
 
@@ -94,6 +96,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -147,6 +150,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,6 +180,7 @@ namespace FinalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);
